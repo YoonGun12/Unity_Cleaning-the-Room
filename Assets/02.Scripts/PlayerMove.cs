@@ -4,17 +4,20 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerMove : MonoBehaviour
 {
     [Header("플레이어 이동")] 
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float walkSpeed;
+    [SerializeField] private float runSpeed;
     [SerializeField] private float jumpPower;
     [SerializeField] private Transform playerPivot;
     [SerializeField] private float rotationSmoothTime = 0.1f;
     
     private Vector2 moveInput;
     private InputAction moveAction;
+    private InputAction runAction;
     private InputAction jumpAction;
     private bool isGround;
     private Rigidbody rigid;
@@ -32,6 +35,7 @@ public class PlayerMove : MonoBehaviour
         UnityEngine.InputSystem.PlayerInput Input = GetComponent<UnityEngine.InputSystem.PlayerInput>();
         rigid = GetComponent<Rigidbody>();
         moveAction = Input.actions["Move"];
+        runAction = Input.actions["Run"];
         jumpAction = Input.actions["Jump"];
         anim = GetComponent<Animator>();
     }
@@ -57,7 +61,9 @@ public class PlayerMove : MonoBehaviour
         //최종 이동 방향
         Vector3 moveDirection = forward * moveInput.y + right * moveInput.x;
 
-        rigid.velocity = new Vector3(moveDirection.x * moveSpeed, rigid.velocity.y, moveDirection.z * moveSpeed);
+        float currentSpeed = runAction.IsPressed() ? runSpeed : walkSpeed;
+        
+        rigid.velocity = new Vector3(moveDirection.x * currentSpeed, rigid.velocity.y, moveDirection.z * currentSpeed);
 
         if (moveDirection.sqrMagnitude > 0.01f)
         {
