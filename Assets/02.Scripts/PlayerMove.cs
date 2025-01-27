@@ -23,12 +23,18 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rigid;
     private float targetRotation;
     private float rotationVelocity;
+    private float previousSpeed = 0f;
 
     [Header("카메라")] 
     [SerializeField] private Transform cameraTransform;
 
     [Header("애니메이션")] 
     private Animator anim;
+
+    private int animIDSpeed;
+    private int animIDGrounded;
+    private int animIDJump;
+    private int animIDFreeFall;
 
     private void Awake()
     {
@@ -38,12 +44,19 @@ public class PlayerMove : MonoBehaviour
         runAction = Input.actions["Run"];
         jumpAction = Input.actions["Jump"];
         anim = GetComponent<Animator>();
+
+        animIDSpeed = Animator.StringToHash("Speed");
+        animIDGrounded = Animator.StringToHash("Grounded");
+        animIDJump = Animator.StringToHash("Jump");
+        animIDFreeFall = Animator.StringToHash("FreeFall");
     }
 
     private void Update()
     {
         Move();
         Jump();
+
+        UpdateAnimator();
     }
 
     private void Move()
@@ -79,11 +92,41 @@ public class PlayerMove : MonoBehaviour
         float rayLength = transform.localScale.y * 0.2f;
         Debug.DrawRay(playerPivot.position, Vector3.down * rayLength, Color.green);
         isGround = Physics.Raycast(playerPivot.position, Vector3.down, rayLength);
-        if (jumpAction.triggered && isGround)
+        
+        anim.SetBool(animIDGrounded, isGround);
+        
+        if (isGround)
         {
-            rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-            isGround = false;
+            anim.SetBool(animIDFreeFall, false);
+
+            if (jumpAction.triggered)
+            {
+                rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+                isGround = false;
+            }
+        }
+        else
+        {
+            anim.SetBool(animIDFreeFall, true);
         }
 
+    }
+
+    private void UpdateAnimator()
+    {
+        float currentSpeed = new Vector3(rigid.velocity.x, 0, rigid.velocity.z).magnitude;
+
+        if (!Mathf.Approximately(previousSpeed, currentSpeed))
+        {
+            anim.SetFloat(animIDSpeed, currentSpeed);
+            previousSpeed = currentSpeed;
+        }
+
+        anim.SetBool(animIDGrounded, isGround);
+    }
+    
+    private void OnLand(AnimationEvent animationEvent)
+    {
+        Debug.Log("착지");
     }
 }
