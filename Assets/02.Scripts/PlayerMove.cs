@@ -31,11 +31,6 @@ public class PlayerMove : MonoBehaviour
     [Header("애니메이션")] 
     private Animator anim;
 
-    private int animIDSpeed;
-    private int animIDGrounded;
-    private int animIDJump;
-    private int animIDFreeFall;
-
     private void Awake()
     {
         UnityEngine.InputSystem.PlayerInput Input = GetComponent<UnityEngine.InputSystem.PlayerInput>();
@@ -44,19 +39,12 @@ public class PlayerMove : MonoBehaviour
         runAction = Input.actions["Run"];
         jumpAction = Input.actions["Jump"];
         anim = GetComponent<Animator>();
-
-        animIDSpeed = Animator.StringToHash("Speed");
-        animIDGrounded = Animator.StringToHash("Grounded");
-        animIDJump = Animator.StringToHash("Jump");
-        animIDFreeFall = Animator.StringToHash("FreeFall");
     }
 
     private void Update()
     {
         Move();
         Jump();
-
-        UpdateAnimator();
     }
 
     private void Move()
@@ -85,6 +73,9 @@ public class PlayerMove : MonoBehaviour
                 rotationSmoothTime);
             transform.rotation = Quaternion.Euler(0, smoothRotation, 0);
         }
+        
+        anim.SetBool("isWalk", moveDirection != Vector3.zero);
+        anim.SetBool("isRun", runAction.IsPressed());
     }
     
     private void Jump()
@@ -93,11 +84,8 @@ public class PlayerMove : MonoBehaviour
         Debug.DrawRay(playerPivot.position, Vector3.down * rayLength, Color.green);
         isGround = Physics.Raycast(playerPivot.position, Vector3.down, rayLength);
         
-        anim.SetBool(animIDGrounded, isGround);
-        
         if (isGround)
         {
-            anim.SetBool(animIDFreeFall, false);
 
             if (jumpAction.triggered)
             {
@@ -107,26 +95,18 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            anim.SetBool(animIDFreeFall, true);
         }
 
     }
-
-    private void UpdateAnimator()
-    {
-        float currentSpeed = new Vector3(rigid.velocity.x, 0, rigid.velocity.z).magnitude;
-
-        if (!Mathf.Approximately(previousSpeed, currentSpeed))
-        {
-            anim.SetFloat(animIDSpeed, currentSpeed);
-            previousSpeed = currentSpeed;
-        }
-
-        anim.SetBool(animIDGrounded, isGround);
-    }
+   
     
     private void OnLand(AnimationEvent animationEvent)
     {
-        Debug.Log("착지");
+        
+    }
+
+    private void OnFootstep()
+    {
+        
     }
 }
