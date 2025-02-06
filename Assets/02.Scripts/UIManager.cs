@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
             gameTimeText.color = Color.red;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
         {
             isMousePressed = true;
             DecreasePower();

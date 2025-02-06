@@ -48,6 +48,7 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
         Jump();
+        Punch();
     }
 
     private void Move()
@@ -107,7 +108,15 @@ public class PlayerMove : MonoBehaviour
         }
 
     }
-    
+
+
+    private void Punch()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            anim.SetTrigger("Punch");
+        }
+    }
     
     private void OnLand(AnimationEvent animationEvent)
     {
