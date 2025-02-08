@@ -25,6 +25,8 @@ public class PlayerMove : MonoBehaviour
     //회전
     private float targetRotation;
     private float rotationVelocity;
+    //펀치
+    [SerializeField] private Collider punchCollider;
     
     private Rigidbody rigid;
 
@@ -117,7 +119,18 @@ public class PlayerMove : MonoBehaviour
             anim.SetTrigger("Punch");
         }
     }
+
+    public void EnablePunchCollider()
+    {
+        punchCollider.enabled = true;
+    }
     
+    public void DisablePunchCollider()
+    {
+        punchCollider.enabled = false;
+    }
+
+
     private void OnLand(AnimationEvent animationEvent)
     {
         //TODO: 점프 후 착지 소리

@@ -9295,6 +9295,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: OfficeChair_01
       objectReference: {fileID: 0}
+    - target: {fileID: 589296751684855794, guid: 041863caed3261e44931834c81ecd97c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Destrictible
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -40746,8 +40751,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -79552,6 +79557,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1082227593453463113}
+  - component: {fileID: 3623201055895089553}
+  - component: {fileID: 3623201055895089554}
   m_Layer: 0
   m_Name: Right_Hand
   m_TagString: Untagged
@@ -79559,6 +79566,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!135 &3623201055895089553
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3623201055895089552}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3623201055895089554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3623201055895089552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd01413c7bdd44b5a6b4bb4db25fde17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3689524441175738947
 Transform:
   m_ObjectHideFlags: 0
@@ -80221,7 +80261,7 @@ Transform:
   m_GameObject: {fileID: 5043835502811564075}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 312.38, y: 0.74, z: -32.12}
+  m_LocalPosition: {x: 285.22, y: 0.74, z: -15.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -80248,6 +80288,7 @@ MonoBehaviour:
   jumpPower: 10
   playerPivot: {fileID: 2068779258}
   rotationSmoothTime: 0.1
+  punchCollider: {fileID: 3623201055895089553}
   cameraTransform: {fileID: 383076781}
 --- !u!114 &5671330479864156819
 MonoBehaviour:
