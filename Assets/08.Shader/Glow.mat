@@ -98,7 +98,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FresnelPower: 2.21
+    - _FresnelPower: 0.35
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -120,7 +120,7 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 0.91764706, g: 0.3254902, b: 0.3647059, a: 0.39215687}
-    - _Color: {r: 0.92215127, g: 0.92215127, b: 3.688605, a: 0.6862745}
+    - _Color: {r: 1.2311442, g: 0, b: 0.023866734, a: 0.6862745}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

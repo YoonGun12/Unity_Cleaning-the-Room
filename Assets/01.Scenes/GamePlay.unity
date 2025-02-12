@@ -18463,13 +18463,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd660eb829522ce4db4837a45ed55a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTime: 2
-  meshRefreshRate: 0.1
-  meshDestoryDelay: 3
+  activeTime: 5
+  meshRefreshRate: 0.2
+  meshDestoryDelay: 5
   positionToSpawn: {fileID: 534374223}
   mat: {fileID: 2100000, guid: f6f7271dfa8275f45901a2073bb7fcfa, type: 2}
   shaderVarRef: _Alpha
-  shaderVarRate: 0.1
+  shaderVarRate: 0.01
   shaderVarRefreshRate: 0.05
 --- !u!137 &534374218
 SkinnedMeshRenderer:
@@ -31500,7 +31500,7 @@ RectTransform:
   m_Father: {fileID: 495080758}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
@@ -77253,7 +77253,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2090695565
 MonoBehaviour:
   m_ObjectHideFlags: 0

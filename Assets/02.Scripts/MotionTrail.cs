@@ -31,13 +31,20 @@ public class MotionTrail : MonoBehaviour
     
     private bool isTrailActive;//잔상효과 활성화 여부
     private SkinnedMeshRenderer[] skinnedMeshRenderers;//플레이어의 스킨드 메쉬 렌더러 배열
+    private List<Vector3> trailPosition = new List<Vector3>();
     
     private void Update()
     {
         if (Input.GetMouseButton(1) && !isTrailActive)
         {
             isTrailActive = true;
+            trailPosition.Clear();
             StartCoroutine(ActiveTrail(activeTime));
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            CheckObjectsInTrail();
         }
     }
 
@@ -53,7 +60,7 @@ public class MotionTrail : MonoBehaviour
             //각 매쉬렌더러에 대해 잔상 생성
             for (int i = 0; i < skinnedMeshRenderers.Length; i++)
             {
-                GameObject gObj = new GameObject();
+                GameObject gObj = new GameObject("TrailObject");
                 gObj.transform.SetPositionAndRotation(positionToSpawn.position, positionToSpawn.rotation);
 
                 MeshRenderer mr = gObj.AddComponent<MeshRenderer>();
@@ -65,6 +72,15 @@ public class MotionTrail : MonoBehaviour
                 mf.mesh = mesh;
                 mr.material = mat;
 
+                SphereCollider collider = gObj.AddComponent<SphereCollider>();
+                collider.isTrigger = true;
+                collider.radius = 0.5f;
+
+                collider.enabled = false;
+                StartCoroutine(EnableColliderAfterDelay(collider, 1f));
+
+                trailPosition.Add(positionToSpawn.position);
+                
                 //쉐이더 변수를 애니메이션으로 변화시키는 코루틴 실행
                 StartCoroutine(AnimatedMaterialFloat(mr.material, 0, shaderVarRate, shaderVarRefreshRate));
                 
@@ -78,6 +94,12 @@ public class MotionTrail : MonoBehaviour
 
     }
 
+    IEnumerator EnableColliderAfterDelay(Collider collider, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        collider.enabled = true;
+    }
+
     IEnumerator AnimatedMaterialFloat(Material mat, float goal, float rate, float refreshRate)
     {
         float valueToAnimate = mat.GetFloat(shaderVarRef);
@@ -89,5 +111,47 @@ public class MotionTrail : MonoBehaviour
             yield return new WaitForSeconds(refreshRate);
         }
     }
-    
+
+    private void CheckObjectsInTrail()
+    {
+        if (trailPosition.Count < 3) return;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 50f);
+
+        foreach (var col in colliders)
+        {
+            if (IsPointInPolygon(trailPosition, col.transform.position))
+            {
+                if (!col.CompareTag("Player"))
+                {
+                    Destroy(col.gameObject);
+                }
+            }
+        }
+    }
+
+    private bool IsPointInPolygon(List<Vector3> polygon, Vector3 point)
+    {
+        int crossings = 0;
+        for (int i = 0; i < polygon.Count; i++)
+        {
+            Vector3 a = polygon[i];
+            Vector3 b = polygon[(i + 1) % polygon.Count];
+
+            if ((a.z > point.z) != (b.z > point.z) && (point.x < (b.x = a.x) * (point.z - a.z) / (b.z - a.z) + a.x))
+            {
+                crossings++;
+            }
+        }
+
+        return (crossings % 2 == 1);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name.Contains("TrailObject"))
+        {
+            Debug.Log("잔상과 충돌");
+            CheckObjectsInTrail();
+        }
+    }
 }
