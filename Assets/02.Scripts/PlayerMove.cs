@@ -20,13 +20,14 @@ public class PlayerMove : MonoBehaviour
     private InputAction moveAction;
     private InputAction runAction;
     private InputAction jumpAction;
+    private InputAction attackAction;
     //점프
     private bool isGround;
     //회전
     private float targetRotation;
     private float rotationVelocity;
-    //펀치
-    [SerializeField] private Collider punchCollider;
+    //킥
+    [SerializeField] private Collider kickCollider;
     
     private Rigidbody rigid;
 
@@ -43,6 +44,7 @@ public class PlayerMove : MonoBehaviour
         moveAction = Input.actions["Move"];
         runAction = Input.actions["Run"];
         jumpAction = Input.actions["Jump"];
+        attackAction = Input.actions["Fire"];
         anim = GetComponent<Animator>();
     }
 
@@ -50,7 +52,7 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
         Jump();
-        Punch();
+        Kick();
     }
 
     private void Move()
@@ -112,24 +114,25 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-    private void Punch()
+    private void Kick()
     {
-        if (Input.GetMouseButton(0))
+        if (attackAction.triggered)
         {
-            anim.SetTrigger("Punch");
+            anim.SetTrigger("Kick");
+            anim.applyRootMotion = true;
+            kickCollider.enabled = true;
+            StartCoroutine(ResetTrigger());
         }
     }
 
-    public void EnablePunchCollider()
+    IEnumerator ResetTrigger()
     {
-        punchCollider.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        anim.applyRootMotion = false;
+        kickCollider.enabled = false;
+        anim.ResetTrigger("Kick");
+        
     }
-    
-    public void DisablePunchCollider()
-    {
-        punchCollider.enabled = false;
-    }
-
 
     private void OnLand(AnimationEvent animationEvent)
     {
