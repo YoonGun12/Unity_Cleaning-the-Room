@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6322585247540411766}
   - component: {fileID: 464028847520443429}
+  - component: {fileID: -3854978238209447970}
   m_Layer: 0
   m_Name: Prefab_Cabbage_quarter
   m_TagString: Untagged
@@ -54,6 +55,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3210205, y: 0.17723694, z: 0.20996119}
   m_Center: {x: 0.007944702, y: 0.06773208, z: -0.007160246}
+--- !u!54 &-3854978238209447970
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501373869008506436}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &5344014985042383159
 PrefabInstance:
   m_ObjectHideFlags: 0

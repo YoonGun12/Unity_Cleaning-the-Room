@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4641709799564541527}
   - component: {fileID: 6653024028876540144}
+  - component: {fileID: 1913314650253754907}
   m_Layer: 0
   m_Name: Prefab_Applecore1
   m_TagString: Untagged
@@ -54,6 +55,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.13141042, y: 0.1699574, z: 0.123701155}
   m_Center: {x: 0.0025698245, y: 0.08094841, z: 0.0012848675}
+--- !u!54 &1913314650253754907
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5884096814905321729}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1814692130813314280
 PrefabInstance:
   m_ObjectHideFlags: 0
