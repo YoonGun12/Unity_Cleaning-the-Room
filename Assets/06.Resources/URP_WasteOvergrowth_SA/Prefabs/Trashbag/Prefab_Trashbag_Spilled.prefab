@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4655781199049945268}
   - component: {fileID: 5123891748499501112}
   - component: {fileID: 7812785862368799925}
+  - component: {fileID: 3503195799514617486}
   m_Layer: 0
   m_Name: Prefab_Trashbag_Spilled
   m_TagString: Untagged
@@ -82,6 +83,27 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.26
   m_Center: {x: 0, y: 0.15, z: 0}
+--- !u!65 &3503195799514617486
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4792798994960597699}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.36, y: 0.25, z: 0.4}
+  m_Center: {x: 0.33, y: 0.12, z: 0.06}
 --- !u!1001 &4850202237526956223
 PrefabInstance:
   m_ObjectHideFlags: 0

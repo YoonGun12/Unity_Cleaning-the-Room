@@ -2,6 +2,13 @@
 using UnityEngine;
 
 
+public enum AttackType
+{
+    Punch,
+    Kick,
+    Special
+}
+
 public class KickCollision : MonoBehaviour
 {
     private float kickForce = 100f;
