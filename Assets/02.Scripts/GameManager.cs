@@ -2,19 +2,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     [Header("게임 설정")] 
-    [SerializeField] private UIManager uiManager; // UIManager 참조 추가
+    [SerializeField] private InGamePanelController inGamePanelController; // UIManager 참조 추가
+
+    private bool isPlay;
     
     public int gameScore = 0;
 
     private void Start()
     {
-        if (uiManager != null)
+        if (inGamePanelController != null)
         {
-            uiManager.SetGameTime(60f); // 초기 게임 시간 설정
+            inGamePanelController.SetGameTime(10f); // 초기 게임 시간 설정
         }
+    }
+
+    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        
     }
 }
