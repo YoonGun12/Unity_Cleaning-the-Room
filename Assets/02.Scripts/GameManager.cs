@@ -10,7 +10,7 @@ public class GameManager : Singleton<GameManager>
     [Header("게임 설정")] 
     [SerializeField] private InGamePanelController inGamePanelController; // UIManager 참조 추가
 
-    private bool isPlay;
+    public bool isPlay;
     
     public int gameScore = 0;
 
@@ -24,6 +24,5 @@ public class GameManager : Singleton<GameManager>
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
     }
 }
