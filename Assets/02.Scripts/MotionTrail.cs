@@ -31,15 +31,11 @@ public class MotionTrail : MonoBehaviour
     
     private bool isTrailActive;//잔상효과 활성화 여부
     private SkinnedMeshRenderer[] skinnedMeshRenderers;//플레이어의 스킨드 메쉬 렌더러 배열
-    
-    private void Update()
+
+    public void StartMotionTrail()
     {
-        if (Input.GetMouseButton(1) && !isTrailActive)
-        {
-            isTrailActive = true;
-            StartCoroutine(ActiveTrail(activeTime));
-        }
-        
+        isTrailActive = true;
+        StartCoroutine(ActiveTrail(activeTime));
     }
 
     IEnumerator ActiveTrail(float timeActive)

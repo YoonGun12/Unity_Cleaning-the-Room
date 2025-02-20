@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class InGamePanelController : MonoBehaviour
 {
-    [Header("능력게이지")]
-    [SerializeField] private Slider powerSlider;
-
     [Header("게임 설정")] 
     [SerializeField] private TextMeshProUGUI gameTimeText;
     
@@ -17,17 +14,20 @@ public class InGamePanelController : MonoBehaviour
 
     private void Update()
     {
-        if (gameTime > 0)
+        if (GameManager.Instance.isPlay)
         {
-            gameTime -= Time.deltaTime;
-            UpdateGameTime();
-        }
-        else
-        {
-            gameTime = 0;
-            gameTimeText.text = "00:00";
-            gameTimeText.color = Color.red;
-            resultPanelRectTransform.anchoredPosition = Vector2.zero;
+            if (gameTime > 0)
+            {
+                gameTime -= Time.deltaTime;
+                UpdateGameTime();
+            }
+            else
+            {
+                gameTime = 0;
+                gameTimeText.text = "00:00";
+                gameTimeText.color = Color.red;
+                resultPanelRectTransform.anchoredPosition = Vector2.zero;
+            }
         }
     }
 

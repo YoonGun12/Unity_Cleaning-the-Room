@@ -20,7 +20,6 @@ public class PlayerMove : MonoBehaviour
     private InputAction moveAction;
     private InputAction runAction;
     private InputAction jumpAction;
-    private InputAction attackAction;
     //점프
     private bool isGround;
     //회전
@@ -28,6 +27,11 @@ public class PlayerMove : MonoBehaviour
     private float rotationVelocity;
     //킥
     [SerializeField] private Collider kickCollider;
+    private float doubleClickThreshold = 0.1f;
+    private bool leftClick = false;
+    private bool rightClick = false;
+    private float leftClickTime;
+    private float rightClickTime;
     
     private Rigidbody rigid;
 
@@ -36,7 +40,8 @@ public class PlayerMove : MonoBehaviour
 
     [Header("애니메이션")] 
     private Animator anim;
-
+    private MotionTrail motionTrail;
+    
     private void Awake()
     {
         PlayerInput Input = GetComponent<PlayerInput>();
@@ -44,8 +49,8 @@ public class PlayerMove : MonoBehaviour
         moveAction = Input.actions["Move"];
         runAction = Input.actions["Run"];
         jumpAction = Input.actions["Jump"];
-        attackAction = Input.actions["Fire"];
         anim = GetComponent<Animator>();
+        motionTrail = GetComponent<MotionTrail>();
     }
 
     private void Update()
@@ -116,12 +121,55 @@ public class PlayerMove : MonoBehaviour
 
     private void Kick()
     {
-        if (attackAction.triggered)
+        var isEPressed = Input.GetKey(KeyCode.E);
+        
+        if (Input.GetMouseButtonDown(0))
         {
-            anim.SetTrigger("Kick");
-            kickCollider.enabled = true;
+            leftClick = true;
+            leftClickTime = Time.time;
+            StartCoroutine(ResetClick("left"));
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            rightClick = true;
+            rightClickTime = Time.time;
+            StartCoroutine(ResetClick("right"));
+        }
+        if (leftClick && rightClick && Mathf.Abs(leftClickTime - rightClickTime) <= doubleClickThreshold)
+        {
+            leftClick = false;
+            rightClick = false;
+
+            anim.SetTrigger(isEPressed ? "HurricaneKick" : "DropKick");
+            return;
+        }
+
+        if (leftClick && !rightClick && Input.GetMouseButtonDown(0))
+        {
+            anim.SetTrigger(isEPressed ? "Kick_L2" : "Kick_L1");
+        }
+        
+        if (!leftClick && rightClick && Input.GetMouseButtonDown(1))
+        {
+            anim.SetTrigger(isEPressed ? "Kick_R2" : "Kick_R1");
         }
     }
+
+    private IEnumerator ResetClick(string button)
+    {
+        yield return new WaitForSeconds(doubleClickThreshold);
+
+        switch (button)
+        {
+            case "left":
+                leftClick = false;
+                break;
+            case "right":
+                rightClick = false;
+                break;
+        }
+    }
+    
 
 
     private void OnLand(AnimationEvent animationEvent)
@@ -177,7 +225,8 @@ public class PlayerMove : MonoBehaviour
         //TODO: 중복 스피드업 금지
         var originalWalkSpeed = walkSpeed;
         var originalRunSpeed = runSpeed;
-        
+
+        motionTrail.StartMotionTrail();
         walkSpeed *= 1.5f;
         runSpeed *= 1.5f;
         yield return new WaitForSeconds(5f);

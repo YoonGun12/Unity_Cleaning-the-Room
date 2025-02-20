@@ -30,6 +30,7 @@ public class TitlePanelController : MonoBehaviour
         var bounceDuration = 0.5f; // 튀는 시간
         var delayBetweenLetters = 0.4f; // 각 글자의 시작 시간 간격
 
+
         AnimateTitleLetter(title1, startY, endY, bounceHeight, duration, bounceDuration, 0 * delayBetweenLetters);
         AnimateTitleLetter(title2, startY, endY, bounceHeight, duration, bounceDuration, 1 * delayBetweenLetters);
         AnimateTitleLetter(title3, startY, endY, bounceHeight, duration, bounceDuration, 2 * delayBetweenLetters);
@@ -63,6 +64,7 @@ public class TitlePanelController : MonoBehaviour
     {
         titlePanel.SetActive(false);
         inGamePanel.SetActive(true);
+        GameManager.Instance.isPlay = true;
     }
 
 }
