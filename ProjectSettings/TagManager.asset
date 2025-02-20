@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - Destrictible
+  - Item
   layers:
   - Default
   - TransparentFX

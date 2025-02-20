@@ -119,20 +119,10 @@ public class PlayerMove : MonoBehaviour
         if (attackAction.triggered)
         {
             anim.SetTrigger("Kick");
-            anim.applyRootMotion = true;
             kickCollider.enabled = true;
-            StartCoroutine(ResetTrigger());
         }
     }
 
-    IEnumerator ResetTrigger()
-    {
-        yield return new WaitForSeconds(0.5f);
-        anim.applyRootMotion = false;
-        kickCollider.enabled = false;
-        anim.ResetTrigger("Kick");
-        
-    }
 
     private void OnLand(AnimationEvent animationEvent)
     {
@@ -142,5 +132,79 @@ public class PlayerMove : MonoBehaviour
     private void OnFootstep()
     {
         //TODO: 발걸음 소리
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            Item item = other.GetComponent<Item>();
+            if (item != null)
+            {
+                ApplyItemEffect(item.itemType);
+                //TODO: 아이템이 사라지는 효과
+            }
+        }
+    }
+
+    private void ApplyItemEffect(Item.ItemType itemType)
+    {
+        switch (itemType)
+        {
+            case Item.ItemType.SpeedUp :
+                StartCoroutine(SpeedUpEffect());
+                break;
+            case Item.ItemType.TimeExtension :
+                GameManager.Instance.inGamePanelController.AddTime(30f);
+                break;
+            case Item.ItemType.Magnet :
+                StartCoroutine(MagnetEffect());
+                break;
+            case Item.ItemType.PowerUp :
+
+                break;
+            case Item.ItemType.SizeDown :
+
+                break;
+            case Item.ItemType.SizeUp :
+                
+                break;
+        }
+    }
+
+    IEnumerator SpeedUpEffect()
+    {
+        //TODO: 중복 스피드업 금지
+        var originalWalkSpeed = walkSpeed;
+        var originalRunSpeed = runSpeed;
+        
+        walkSpeed *= 1.5f;
+        runSpeed *= 1.5f;
+        yield return new WaitForSeconds(5f);
+        walkSpeed = originalWalkSpeed;
+        runSpeed = originalRunSpeed;
+    }
+
+    IEnumerator MagnetEffect()
+    {
+        var magnetRadius = 5f;
+        var magnetSpeed = 2f;
+        var elapsedTime = 0f;
+
+        while (elapsedTime < 5f)
+        {
+            Collider[] destructibles = Physics.OverlapSphere(transform.position, magnetRadius);
+            foreach (var destructible in destructibles )
+            {
+                if (destructible.CompareTag("Destrictible"))
+                {
+                    destructible.transform.position = Vector3.MoveTowards(destructible.transform.position,
+                        transform.position, magnetSpeed * Time.deltaTime);
+                }
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
 }

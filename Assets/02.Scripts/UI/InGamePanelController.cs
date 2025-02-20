@@ -12,10 +12,7 @@ public class InGamePanelController : MonoBehaviour
     [Header("게임 설정")] 
     [SerializeField] private TextMeshProUGUI gameTimeText;
     
-    private float gameTime = 60f;
-    private bool isMousePressed;
-    [SerializeField] private float increasePowerSpeed;
-    [SerializeField] private float decreasePowerSpeed;
+    private float gameTime;
     [SerializeField] private RectTransform resultPanelRectTransform;
 
     private void Update()
@@ -32,17 +29,6 @@ public class InGamePanelController : MonoBehaviour
             gameTimeText.color = Color.red;
             resultPanelRectTransform.anchoredPosition = Vector2.zero;
         }
-
-        if (Input.GetMouseButton(1))
-        {
-            isMousePressed = true;
-            DecreasePower();
-        }
-        else
-        {
-            isMousePressed = false;
-            IncreasePower();
-        }
     }
 
     private void UpdateGameTime()
@@ -57,21 +43,14 @@ public class InGamePanelController : MonoBehaviour
         }
     }
 
-    private void IncreasePower()
+    public void AddTime(float addTime)
     {
-        if (!isMousePressed && powerSlider.value < powerSlider.maxValue)
-        {
-            powerSlider.value += increasePowerSpeed * Time.deltaTime;
-        }
+        gameTime += addTime;
     }
-
-    private void DecreasePower()
-    {
-        powerSlider.value -= decreasePowerSpeed * Time.deltaTime;
-    }
+    
     
     public void SetGameTime(float time)
     {
-        gameTime = time;
+        gameTime += time;
     }
 }
