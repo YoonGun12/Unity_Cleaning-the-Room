@@ -5,8 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
-  - Destrictible
   - Item
+  - Destructible
+  - PlayerAttack
   layers:
   - Default
   - TransparentFX

@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -26,12 +24,14 @@ public class PlayerMove : MonoBehaviour
     private float targetRotation;
     private float rotationVelocity;
     //킥
-    [SerializeField] private Collider kickCollider;
+    [SerializeField] private Collider LeftFootCollider;
+    [SerializeField] private Collider RightFootCollider;
     private float doubleClickThreshold = 0.1f;
     private bool leftClick = false;
     private bool rightClick = false;
     private float leftClickTime;
     private float rightClickTime;
+    private bool isMove = true;
     
     private Rigidbody rigid;
 
@@ -42,6 +42,8 @@ public class PlayerMove : MonoBehaviour
     private Animator anim;
     private MotionTrail motionTrail;
     
+    public enum AttackType{None,L1, L2, R1, R2, DropKick, HurricaneKick}
+    public AttackType attackType = AttackType.L1;
     private void Awake()
     {
         PlayerInput Input = GetComponent<PlayerInput>();
@@ -51,11 +53,13 @@ public class PlayerMove : MonoBehaviour
         jumpAction = Input.actions["Jump"];
         anim = GetComponent<Animator>();
         motionTrail = GetComponent<MotionTrail>();
+        
     }
 
     private void Update()
     {
-        Move();
+        if(isMove)
+            Move();
         Jump();
         Kick();
     }
@@ -140,20 +144,92 @@ public class PlayerMove : MonoBehaviour
             leftClick = false;
             rightClick = false;
 
-            anim.SetTrigger(isEPressed ? "HurricaneKick" : "DropKick");
+            if (isEPressed)
+            {
+                attackType = AttackType.HurricaneKick;
+                anim.SetTrigger("HurricaneKick");
+                StartCoroutine(RotateHurricaneKick());
+            }
+            else
+            {
+                attackType = AttackType.DropKick;
+                anim.SetTrigger("DropKick");
+            }
+            
             return;
         }
 
         if (leftClick && !rightClick && Input.GetMouseButtonDown(0))
         {
-            anim.SetTrigger(isEPressed ? "Kick_L2" : "Kick_L1");
+            if (isEPressed)
+            {
+                attackType = AttackType.L2;
+                anim.SetTrigger("Kick_L2");
+            }
+            else
+            {
+                attackType = AttackType.L1;
+                anim.SetTrigger("Kick_L1");
+            }
         }
         
         if (!leftClick && rightClick && Input.GetMouseButtonDown(1))
         {
-            anim.SetTrigger(isEPressed ? "Kick_R2" : "Kick_R1");
+            if (isEPressed)
+            {
+                attackType = AttackType.R2;
+                anim.SetTrigger("Kick_R2");
+            }
+            else
+            {
+                attackType = AttackType.R1;
+                anim.SetTrigger("Kick_R1");
+            }        }
+    }
+
+    IEnumerator RotateHurricaneKick()
+    {
+        isMove = false;
+        float elapsedTime = 0f;
+        float rotationSpeed = 1440f;
+        while (elapsedTime < 1f)
+        {
+            float rotationAmount = rotationSpeed * Time.deltaTime;
+            transform.Rotate(Vector3.up, rotationAmount);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        isMove = true;
+    }
+
+    public void EnableAttackCollider(AttackType attackType)
+    {
+        switch (attackType)
+        {
+            case AttackType.L1:
+            case AttackType.L2:
+                LeftFootCollider.enabled = true;
+                break;
+            case AttackType.DropKick:
+                LeftFootCollider.enabled = true;
+                RightFootCollider.enabled = true;
+                break;
+            case AttackType.R1:
+            case AttackType.R2:
+            case AttackType.HurricaneKick:
+                RightFootCollider.enabled = true;
+                break;
         }
     }
+
+    public void disableAttackCollider()
+    {
+        LeftFootCollider.enabled = false;
+        RightFootCollider.enabled = false;
+        attackType = AttackType.None;
+    }
+    
 
     private IEnumerator ResetClick(string button)
     {
@@ -190,7 +266,7 @@ public class PlayerMove : MonoBehaviour
             if (item != null)
             {
                 ApplyItemEffect(item.itemType);
-                //TODO: 아이템이 사라지는 효과
+                Destroy(other.gameObject);
             }
         }
     }
@@ -245,7 +321,7 @@ public class PlayerMove : MonoBehaviour
             Collider[] destructibles = Physics.OverlapSphere(transform.position, magnetRadius);
             foreach (var destructible in destructibles )
             {
-                if (destructible.CompareTag("Destrictible"))
+                if (destructible.CompareTag("Destructible"))
                 {
                     destructible.transform.position = Vector3.MoveTowards(destructible.transform.position,
                         transform.position, magnetSpeed * Time.deltaTime);

@@ -515,7 +515,7 @@ MonoBehaviour:
   jumpPower: 10
   playerPivot: {fileID: 83387639}
   rotationSmoothTime: 0.1
-  punchCollider: {fileID: 2008033365}
+  kickCollider: {fileID: 0}
   cameraTransform: {fileID: 1597378547}
 --- !u!114 &1568701385
 MonoBehaviour:
