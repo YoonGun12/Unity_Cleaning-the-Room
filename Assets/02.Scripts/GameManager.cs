@@ -22,6 +22,7 @@ public class GameManager : Singleton<GameManager>
             inGamePanelController.SetGameTime(420f); // 초기 게임 시간 설정
         }
     }
+    
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {

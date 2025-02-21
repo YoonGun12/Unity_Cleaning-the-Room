@@ -7,10 +7,11 @@ using UnityEngine.UI;
 public class InGamePanelController : MonoBehaviour
 {
     [Header("게임 설정")] 
-    [SerializeField] private TextMeshProUGUI gameTimeText;
+    [SerializeField] private TMP_Text gameTimeText;
     
     private float gameTime;
     [SerializeField] private RectTransform resultPanelRectTransform;
+    [SerializeField] private TMP_Text gameScoreText;
 
     private void Update()
     {
@@ -28,6 +29,8 @@ public class InGamePanelController : MonoBehaviour
                 gameTimeText.color = Color.red;
                 resultPanelRectTransform.anchoredPosition = Vector2.zero;
             }
+
+            gameScoreText.text = $"점수 : "+ GameManager.Instance.gameScore.ToString();
         }
     }
 

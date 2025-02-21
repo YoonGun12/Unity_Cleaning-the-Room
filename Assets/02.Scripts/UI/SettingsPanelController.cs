@@ -1,25 +1,54 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class SettingsPanelController : MonoBehaviour
 {
+    private RectTransform settingsPanelRect;
+    private CanvasGroup settingsCanvasGroup;
     private Vector2 settingsPanelPosOrigin;
-    private RectTransform settingsPanelRectTransform;
+    
     [SerializeField] private GameObject titlePanel;
     [SerializeField] private GameObject retryButton;
     [SerializeField] private GameObject mainButton;
 
+    private bool isPanelVisible = false;
+    
     private void Awake()
     {
-        settingsPanelRectTransform = GetComponent<RectTransform>();
-        settingsPanelPosOrigin = settingsPanelRectTransform.anchoredPosition;
+        settingsPanelRect = GetComponent<RectTransform>();
+        settingsCanvasGroup = GetComponent<CanvasGroup>();
+        
+        settingsPanelPosOrigin = gameObject.GetComponent<RectTransform>().anchoredPosition;
+        settingsCanvasGroup.alpha = 0;
+    }
+
+    private void Update()
+    {
+        if (GameManager.Instance.isPlay && Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnOffSettingsPanel();
+        }
+    }
+
+    public void OnOffSettingsPanel()
+    {
+        if (isPanelVisible)
+        {
+            OnClickCloseSettingPanelBtn();
+        }
+        else
+        {
+            OnClickOpenSettingPanelBtn();
+        }
     }
     
-
-    public void OnClickSettingPanelBtn()
+    public void OnClickOpenSettingPanelBtn()
     {
+        isPanelVisible = true;
+        
         if (GameManager.Instance.isPlay)
         {
             retryButton.SetActive(true);
@@ -30,12 +59,15 @@ public class SettingsPanelController : MonoBehaviour
             retryButton.SetActive(false);
             mainButton.SetActive(false);
         }
-        settingsPanelRectTransform.anchoredPosition = Vector2.zero;
+
+        settingsPanelRect.DOAnchorPosY(0, 0.5f);
+        settingsCanvasGroup.DOFade(1, 0.5f);
     }
     
     public void OnClickCloseSettingPanelBtn()
     {
-        settingsPanelRectTransform.anchoredPosition = settingsPanelPosOrigin;
+        settingsPanelRect.DOAnchorPosY(settingsPanelPosOrigin.y, 0.5f);
+        settingsCanvasGroup.DOFade(0, 0.5f);
     }
 
     public void OnClickSFXBtn()

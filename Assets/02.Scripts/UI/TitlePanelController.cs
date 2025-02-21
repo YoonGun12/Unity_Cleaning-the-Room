@@ -57,7 +57,7 @@ public class TitlePanelController : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         menuBtn.GetComponent<RectTransform>().DOAnchorPosY(-300f, 0f);
-        menuBtn.GetComponent<RectTransform>().DOAnchorPosY(80f, 2f);
+        menuBtn.GetComponent<RectTransform>().DOAnchorPosY(80f, 1f);
     }
 
     public void OnClickStartBtn()

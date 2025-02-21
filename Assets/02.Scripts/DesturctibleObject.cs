@@ -82,6 +82,7 @@ public class DesturctibleObject : MonoBehaviour
         {
             item.transform.DOMoveY(transform.position.y, 1f).SetEase(Ease.InQuad);
         });
+        GameManager.Instance.gameScore += score;
         Destroy(gameObject);
     }
 
