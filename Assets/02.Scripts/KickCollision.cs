@@ -26,5 +26,10 @@ public class KickCollision : MonoBehaviour
         }
     }
 
+    public void GetPowerItem(int power)
+    {
+        kickForce += power;
+    }
+
     
 }

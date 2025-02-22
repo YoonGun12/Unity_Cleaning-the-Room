@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private Vector3 cameraOffset;
     [SerializeField] private float followSpeed;
-    [SerializeField] private float distanceTargetCamera = 0.1f;
+    [SerializeField] private float distanceTargetCamera = 4f;
 
     [Header("카메라 회전 세팅")] 
     [SerializeField] private float mouseSensitivity = 100f;
@@ -35,5 +35,10 @@ public class CameraFollow : MonoBehaviour
         transform.position = target.position + rotatedOffset;
         
         transform.LookAt(target.position + cameraOffset);
+    }
+
+    public void ChangeDistanceCamera(float rate)
+    {
+        distanceTargetCamera *= rate;
     }
 }

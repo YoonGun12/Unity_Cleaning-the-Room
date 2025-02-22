@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -58,6 +59,8 @@ public class PlayerMove : MonoBehaviour
     private bool canAttack_R2 = true;
     private bool canAttack_DropKick = true;
     private bool canAttack_HurricaneKick = true;
+
+    private KickCollision _kickCollision;
     private void Awake()
     {
         PlayerInput Input = GetComponent<PlayerInput>();
@@ -67,7 +70,8 @@ public class PlayerMove : MonoBehaviour
         jumpAction = Input.actions["Jump"];
         anim = GetComponent<Animator>();
         motionTrail = GetComponent<MotionTrail>();
-        
+        _kickCollision = GetComponentInChildren<KickCollision>();
+
     }
 
     private void Update()
@@ -351,22 +355,34 @@ public class PlayerMove : MonoBehaviour
         switch (itemType)
         {
             case Item.ItemType.SpeedUp :
+                Debug.Log("스피드업");
                 StartCoroutine(SpeedUpEffect());
                 break;
             case Item.ItemType.TimeExtension :
+                Debug.Log("시간추가");
                 GameManager.Instance.inGamePanelController.AddTime(30f);
                 break;
             case Item.ItemType.Magnet :
+                Debug.Log("자석");
                 StartCoroutine(MagnetEffect());
                 break;
             case Item.ItemType.PowerUp :
-
+                Debug.Log("파워업");
+                StartCoroutine(PowerUpEffect());
                 break;
             case Item.ItemType.SizeDown :
-
+                Debug.Log("사이즈다운");
+                transform.DOScale(transform.localScale * 0.9f, 1f);
+                walkSpeed *= 0.9f;
+                runSpeed *= 0.9f;
+                cameraTransform.GetComponent<CameraFollow>().ChangeDistanceCamera(0.9f);
                 break;
             case Item.ItemType.SizeUp :
-                
+                Debug.Log("사이즈업");
+                transform.DOScale(transform.localScale * 1.2f, 1f);
+                walkSpeed *= 1.2f;
+                runSpeed *= 1.2f;
+                cameraTransform.GetComponent<CameraFollow>().ChangeDistanceCamera(1.1f);
                 break;
         }
     }
@@ -406,5 +422,11 @@ public class PlayerMove : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+    }
+
+    IEnumerator PowerUpEffect()
+    {
+        _kickCollision.GetPowerItem(50);
+        yield return new WaitForSeconds(2f);
     }
 }
