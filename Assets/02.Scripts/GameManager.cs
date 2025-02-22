@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
     public InGamePanelController inGamePanelController; // UIManager 참조 추가
     public PlayerMove player;
 
-    public bool isPlay;
+    public bool isPlay = false;
     public int gameScore = 0;
 
     private void Start()
@@ -19,7 +19,7 @@ public class GameManager : Singleton<GameManager>
         isPlay = false;
         if (inGamePanelController != null)
         {
-            inGamePanelController.SetGameTime(420f); // 초기 게임 시간 설정
+            inGamePanelController.SetGameTime(300f); // 초기 게임 시간 설정
         }
     }
     
