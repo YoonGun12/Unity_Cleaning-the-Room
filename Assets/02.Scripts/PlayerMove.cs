@@ -44,6 +44,20 @@ public class PlayerMove : MonoBehaviour
     
     public enum AttackType{None,L1, L2, R1, R2, DropKick, HurricaneKick}
     public AttackType attackType = AttackType.L1;
+
+    private float cooldown_L1 = 0.5f;
+    private float cooldown_L2 = 1.5f;
+    private float cooldown_R1 = 1f;
+    private float cooldown_R2 = 2f;
+    private float cooldown_DropKick = 3f;
+    private float cooldown_HurricaneKick = 5f;
+
+    private bool canAttack_L1 = true;
+    private bool canAttack_L2 = true;
+    private bool canAttack_R1 = true;
+    private bool canAttack_R2 = true;
+    private bool canAttack_DropKick = true;
+    private bool canAttack_HurricaneKick = true;
     private void Awake()
     {
         PlayerInput Input = GetComponent<PlayerInput>();
@@ -146,14 +160,22 @@ public class PlayerMove : MonoBehaviour
 
             if (isEPressed)
             {
-                attackType = AttackType.HurricaneKick;
-                anim.SetTrigger("HurricaneKick");
-                StartCoroutine(RotateHurricaneKick());
+                if (canAttack_HurricaneKick)
+                {
+                    attackType = AttackType.HurricaneKick;
+                    anim.SetTrigger("HurricaneKick");
+                    StartCoroutine(RotateHurricaneKick());
+                    StartCoroutine(AttackCooldown(cooldown_HurricaneKick, attackType));
+                }
             }
             else
             {
-                attackType = AttackType.DropKick;
-                anim.SetTrigger("DropKick");
+                if (canAttack_DropKick)
+                {
+                    attackType = AttackType.DropKick;
+                    anim.SetTrigger("DropKick");
+                    StartCoroutine(AttackCooldown(cooldown_DropKick, attackType));
+                }
             }
             
             return;
@@ -163,28 +185,81 @@ public class PlayerMove : MonoBehaviour
         {
             if (isEPressed)
             {
-                attackType = AttackType.L2;
-                anim.SetTrigger("Kick_L2");
+                if (canAttack_L2)
+                {
+                    attackType = AttackType.L2;
+                    anim.SetTrigger("Kick_L2");
+                    StartCoroutine(AttackCooldown(cooldown_L2, attackType));
+                }
             }
             else
             {
-                attackType = AttackType.L1;
-                anim.SetTrigger("Kick_L1");
+                if (canAttack_L1)
+                {
+                    attackType = AttackType.L1;
+                    anim.SetTrigger("Kick_L1");
+                    StartCoroutine(AttackCooldown(cooldown_L1, attackType));
+                }
+                
             }
         }
-        
+
         if (!leftClick && rightClick && Input.GetMouseButtonDown(1))
         {
             if (isEPressed)
             {
-                attackType = AttackType.R2;
-                anim.SetTrigger("Kick_R2");
+                if (canAttack_R2)
+                {
+                    attackType = AttackType.R2;
+                    anim.SetTrigger("Kick_R2");
+                    StartCoroutine(AttackCooldown(cooldown_R2, attackType));
+                }
+
             }
             else
             {
-                attackType = AttackType.R1;
-                anim.SetTrigger("Kick_R1");
-            }        }
+                if (canAttack_R1)
+                {
+                    attackType = AttackType.R1;
+                    anim.SetTrigger("Kick_R1");
+                    StartCoroutine(AttackCooldown(cooldown_R1, attackType));
+                }
+
+            }
+        }
+    }
+
+    private IEnumerator AttackCooldown(float cooldown, AttackType attackType)
+    {
+        switch (attackType)
+        {
+            case AttackType.L1: canAttack_L1 = false; break;
+            case AttackType.L2: canAttack_L2 = false; break;
+            case AttackType.R1: canAttack_R1 = false; break;
+            case AttackType.R2: canAttack_R2 = false; break;
+            case AttackType.DropKick: canAttack_DropKick = false; break;
+            case AttackType.HurricaneKick: canAttack_HurricaneKick = false; break;
+        }
+
+        float timer = cooldown;
+        while (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            GameManager.Instance.inGamePanelController.UpdateCooldownUI(attackType, timer/cooldown);
+            yield return null;
+        }
+
+        switch (attackType)
+        {
+            case AttackType.L1: canAttack_L1 = true; break;
+            case AttackType.L2: canAttack_L2 = true; break;
+            case AttackType.R1: canAttack_R1 = true; break;
+            case AttackType.R2: canAttack_R2 = true; break;
+            case AttackType.DropKick: canAttack_DropKick = true; break;
+            case AttackType.HurricaneKick: canAttack_HurricaneKick = true; break;
+        }
+        
+        GameManager.Instance.inGamePanelController.UpdateCooldownUI(attackType, 0);
     }
 
     IEnumerator RotateHurricaneKick()

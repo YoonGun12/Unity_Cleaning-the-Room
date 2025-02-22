@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,6 +13,23 @@ public class InGamePanelController : MonoBehaviour
     private float gameTime;
     [SerializeField] private RectTransform resultPanelRectTransform;
     [SerializeField] private TMP_Text gameScoreText;
+
+    [SerializeField] private Image L1Image;
+    [SerializeField] private Image L2Image;
+    [SerializeField] private Image R1Image;
+    [SerializeField] private Image R2Image;
+    [SerializeField] private Image DropKickImage;
+    [SerializeField] private Image HurricaneKickImage;
+
+    private void Start()
+    {
+        L1Image.fillAmount = 0;
+        L2Image.fillAmount = 0;
+        R1Image.fillAmount = 0;
+        R2Image.fillAmount = 0;
+        DropKickImage.fillAmount = 0;
+        HurricaneKickImage.fillAmount = 0;
+    }
 
     private void Update()
     {
@@ -31,6 +49,31 @@ public class InGamePanelController : MonoBehaviour
             }
 
             gameScoreText.text = $"점수 : "+ GameManager.Instance.gameScore.ToString();
+        }
+    }
+
+    public void UpdateCooldownUI(PlayerMove.AttackType attackType, float fillAmount)
+    {
+        switch (attackType)
+        {
+            case PlayerMove.AttackType.L1:
+                L1Image.fillAmount = fillAmount;
+                break;
+            case PlayerMove.AttackType.L2:
+                L2Image.fillAmount = fillAmount;
+                break;
+            case PlayerMove.AttackType.R1:
+                R1Image.fillAmount = fillAmount;
+                break;
+            case PlayerMove.AttackType.R2:
+                R2Image.fillAmount = fillAmount;
+                break;
+            case PlayerMove.AttackType.DropKick:
+                DropKickImage.fillAmount = fillAmount;
+                break;
+            case PlayerMove.AttackType.HurricaneKick:
+                HurricaneKickImage.fillAmount = fillAmount;
+                break;
         }
     }
 

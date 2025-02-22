@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class KickCollision : MonoBehaviour
 {
     private float kickForce = 50f;
     [SerializeField] private GameObject dustPrefab;
+    [SerializeField] private Transform dustPrefabTransform;
 
     
     private void OnTriggerEnter(Collider other)
@@ -18,8 +20,11 @@ public class KickCollision : MonoBehaviour
                 Vector3 contactPoint = other.ClosestPoint(transform.position);
                 Vector3 forceDirection = contactPoint - transform.position;
                 enemyRigid.AddForce(forceDirection.normalized * kickForce, ForceMode.Impulse);
-                Instantiate(dustPrefab, contactPoint, Quaternion.identity);
+                var dustObject = Instantiate(dustPrefab, contactPoint, Quaternion.identity, dustPrefabTransform);
+                Destroy(dustObject, 2f);
             }
         }
     }
+
+    
 }
