@@ -24,6 +24,7 @@ public class TitlePanelController : MonoBehaviour
 
     private void PlayTitleAnimation()
     {
+        AudioManager.instance.PlayBgm(AudioManager.Bgm.Title, true);
         var startY = 700f; // 시작 위치 (화면 위)
         var endY = 0f; // 최종 위치
         var bounceHeight = 100f; // 튀는 높이
@@ -65,6 +66,7 @@ public class TitlePanelController : MonoBehaviour
     {
         introPanel.SetActive(true);
         GameManager.Instance.introPanelController.StartIntro();
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
 
 }

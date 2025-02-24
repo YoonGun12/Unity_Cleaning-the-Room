@@ -8,9 +8,10 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     [Header("BGM")] 
-    public AudioClip bgmClip;
+    public AudioClip[] bgmClips;
     public float bgmVolume;
     private AudioSource _bgmPlayer;
+    private Bgm currentBgm = Bgm.Title;
 
     [Header("SFX")] 
     public AudioClip[] sfxClips;
@@ -25,8 +26,33 @@ public class AudioManager : MonoBehaviour
         Init();
     }
 
-    public enum Sfx {Jump, Magnet, SizeDown, SizeUp, Speedup, Timeup}
-    
+    public enum Sfx
+    {
+        Jump,
+        Magnet,
+        SizeDown,
+        SizeUp,
+        Speedup,
+        Timeup,
+        TimeOut,
+        ButtonClick,
+        FootStep,
+        Landing,
+        AddTime,
+        PowerUp,
+        HardObject,
+        Kick
+    }
+
+    public enum Bgm
+    {
+        Title,
+        InGame1,
+        InGame2,
+        InGame3,
+        Result
+    }
+
     void Init()
     {
         //배경음 플레이어 초기화
@@ -36,7 +62,6 @@ public class AudioManager : MonoBehaviour
         _bgmPlayer.playOnAwake = false;
         _bgmPlayer.loop = true;
         _bgmPlayer.volume = bgmVolume;
-        _bgmPlayer.clip = bgmClip;
 
         //효과음 플레이어 초기화
         var sfxObject = new GameObject("SfxPlayer");
@@ -51,15 +76,22 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayBgm(bool isPlay)
+    public void PlayBgm(Bgm bgmType ,bool isPlay)
     {
         if (isPlay)
         {
+            if (currentBgm == bgmType && _bgmPlayer.isPlaying)
+                return;
+            _bgmPlayer.clip = bgmClips[(int)bgmType];
             _bgmPlayer.Play();
+            currentBgm = bgmType;
         }
         else
         {
-            _bgmPlayer.Stop();
+            if (currentBgm == bgmType && _bgmPlayer.isPlaying)
+            {
+                _bgmPlayer.Stop();
+            }
         }
     }
     

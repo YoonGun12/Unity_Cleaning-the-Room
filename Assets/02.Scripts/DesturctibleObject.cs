@@ -63,7 +63,8 @@ public class DesturctibleObject : MonoBehaviour
     public void Damaged(int damage)
     {
         hp -= damage;
-        //TODO: 데미지 받는 소리 type별 switch
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.HardObject);
+
         
         if (hp <= 0)
         {

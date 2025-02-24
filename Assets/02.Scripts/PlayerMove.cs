@@ -195,6 +195,7 @@ public class PlayerMove : MonoBehaviour
                     attackType = AttackType.L2;
                     anim.SetTrigger("Kick_L2");
                     StartCoroutine(AttackCooldown(cooldown_L2, attackType));
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.Kick);
                 }
             }
             else
@@ -204,6 +205,7 @@ public class PlayerMove : MonoBehaviour
                     attackType = AttackType.L1;
                     anim.SetTrigger("Kick_L1");
                     StartCoroutine(AttackCooldown(cooldown_L1, attackType));
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.Kick);
                 }
                 
             }
@@ -218,6 +220,7 @@ public class PlayerMove : MonoBehaviour
                     attackType = AttackType.R2;
                     anim.SetTrigger("Kick_R2");
                     StartCoroutine(AttackCooldown(cooldown_R2, attackType));
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.Kick);
                 }
 
             }
@@ -228,10 +231,12 @@ public class PlayerMove : MonoBehaviour
                     attackType = AttackType.R1;
                     anim.SetTrigger("Kick_R1");
                     StartCoroutine(AttackCooldown(cooldown_R1, attackType));
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.Kick);
                 }
 
             }
         }
+        
     }
 
     private IEnumerator AttackCooldown(float cooldown, AttackType attackType)
@@ -330,12 +335,12 @@ public class PlayerMove : MonoBehaviour
 
     private void OnLand(AnimationEvent animationEvent)
     {
-        //TODO: 점프 후 착지 소리
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Landing);
     }
 
     private void OnFootstep()
     {
-        //TODO: 발걸음 소리
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.FootStep);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -360,15 +365,15 @@ public class PlayerMove : MonoBehaviour
                 StartCoroutine(SpeedUpEffect());
                 break;
             case Item.ItemType.TimeExtension :
-                Debug.Log("시간추가");
                 GameManager.Instance.inGamePanelController.AddTime(30f);
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.AddTime);
                 break;
             case Item.ItemType.Magnet :
                 AudioManager.instance.PlaySfx(AudioManager.Sfx.Magnet);
                 StartCoroutine(MagnetEffect());
                 break;
             case Item.ItemType.PowerUp :
-                Debug.Log("파워업");
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.PowerUp);
                 StartCoroutine(PowerUpEffect());
                 break;
             case Item.ItemType.SizeDown :

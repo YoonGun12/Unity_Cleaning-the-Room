@@ -48,7 +48,9 @@ public class InGamePanelController : MonoBehaviour
                 gameTimeText.text = "00:00";
                 gameTimeText.color = Color.red;
                 resultPanelRectTransform.DOAnchorPos(Vector2.zero, 1f);
-                AudioManager.instance.PlayBgm(false);
+                AudioManager.instance.PlayBgm(AudioManager.Bgm.InGame3,false);
+                AudioManager.instance.PlayBgm(AudioManager.Bgm.Result,true);
+                //AudioManager.instance.PlaySfx(AudioManager.Sfx.TimeOut);
             }
 
             gameScoreText.text = $"점수 : "+ GameManager.Instance.gameScore.ToString();
@@ -86,9 +88,17 @@ public class InGamePanelController : MonoBehaviour
         int seconds = Mathf.FloorToInt(gameTime % 60);
         gameTimeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
+        if (gameTime <= 120f && gameTime > 30f)
+        {
+            AudioManager.instance.PlayBgm(AudioManager.Bgm.InGame1, false);
+            AudioManager.instance.PlayBgm(AudioManager.Bgm.InGame2, true);
+        }
+
         if (gameTime <= 30f)
         {
-            AudioManager.instance.PlaySfx(AudioManager.Sfx.Timeup);
+            AudioManager.instance.PlayBgm(AudioManager.Bgm.InGame2, false);
+            AudioManager.instance.PlayBgm(AudioManager.Bgm.InGame3, true);
+            //AudioManager.instance.PlaySfx(AudioManager.Sfx.Timeup);
             gameTimeText.color = Color.red;
         }
     }

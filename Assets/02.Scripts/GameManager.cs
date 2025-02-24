@@ -20,7 +20,7 @@ public class GameManager : Singleton<GameManager>
         isPlay = false;
         if (inGamePanelController != null)
         {
-            inGamePanelController.SetGameTime(300f); // 초기 게임 시간 설정
+            inGamePanelController.SetGameTime(90f); // 초기 게임 시간 설정
         }
     }
     

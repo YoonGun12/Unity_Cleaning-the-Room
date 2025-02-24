@@ -48,6 +48,7 @@ public class SettingsPanelController : MonoBehaviour
     public void OnClickOpenSettingPanelBtn()
     {
         isPanelVisible = true;
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
         
         if (GameManager.Instance.isPlay)
         {
@@ -68,24 +69,25 @@ public class SettingsPanelController : MonoBehaviour
     {
         settingsPanelRect.DOAnchorPosY(settingsPanelPosOrigin.y, 0.5f);
         settingsCanvasGroup.DOFade(0, 0.5f);
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
 
     public void OnClickSFXBtn()
     {
-        
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
 
     public void OnClickBGMBtn()
     {
-        
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
     public void OnClickRetryBtn()
     {
-        
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
 
     public void OnClickMainBtn()
     {
-        
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
 }
