@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,10 +43,12 @@ public class InGamePanelController : MonoBehaviour
             }
             else
             {
+                GameManager.Instance.isPlay = false;
                 gameTime = 0;
                 gameTimeText.text = "00:00";
                 gameTimeText.color = Color.red;
-                resultPanelRectTransform.anchoredPosition = Vector2.zero;
+                resultPanelRectTransform.DOAnchorPos(Vector2.zero, 1f);
+                AudioManager.instance.PlayBgm(false);
             }
 
             gameScoreText.text = $"점수 : "+ GameManager.Instance.gameScore.ToString();
@@ -85,6 +88,7 @@ public class InGamePanelController : MonoBehaviour
 
         if (gameTime <= 30f)
         {
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Timeup);
             gameTimeText.color = Color.red;
         }
     }

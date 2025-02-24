@@ -14,6 +14,7 @@ public class TitlePanelController : MonoBehaviour
     [SerializeField] private RectTransform settingsPanelRectTransform;
     [SerializeField] private GameObject titlePanel;
     [SerializeField] private GameObject inGamePanel;
+    [SerializeField] private GameObject introPanel;
 
     
     private void Start()
@@ -62,9 +63,8 @@ public class TitlePanelController : MonoBehaviour
 
     public void OnClickStartBtn()
     {
-        titlePanel.SetActive(false);
-        inGamePanel.SetActive(true);
-        GameManager.Instance.isPlay = true;
+        introPanel.SetActive(true);
+        GameManager.Instance.introPanelController.StartIntro();
     }
 
 }

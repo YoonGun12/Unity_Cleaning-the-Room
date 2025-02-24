@@ -130,6 +130,7 @@ public class PlayerMove : MonoBehaviour
                 rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
                 isGround = false;
                 anim.SetTrigger("Jump");
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.Jump);
             }
             
         }
@@ -355,7 +356,7 @@ public class PlayerMove : MonoBehaviour
         switch (itemType)
         {
             case Item.ItemType.SpeedUp :
-                Debug.Log("스피드업");
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.Speedup);
                 StartCoroutine(SpeedUpEffect());
                 break;
             case Item.ItemType.TimeExtension :
@@ -363,7 +364,7 @@ public class PlayerMove : MonoBehaviour
                 GameManager.Instance.inGamePanelController.AddTime(30f);
                 break;
             case Item.ItemType.Magnet :
-                Debug.Log("자석");
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.Magnet);
                 StartCoroutine(MagnetEffect());
                 break;
             case Item.ItemType.PowerUp :
@@ -371,14 +372,14 @@ public class PlayerMove : MonoBehaviour
                 StartCoroutine(PowerUpEffect());
                 break;
             case Item.ItemType.SizeDown :
-                Debug.Log("사이즈다운");
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.SizeDown);
                 transform.DOScale(transform.localScale * 0.9f, 1f);
                 walkSpeed *= 0.9f;
                 runSpeed *= 0.9f;
                 cameraTransform.GetComponent<CameraFollow>().ChangeDistanceCamera(0.9f);
                 break;
             case Item.ItemType.SizeUp :
-                Debug.Log("사이즈업");
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.SizeUp);
                 transform.DOScale(transform.localScale * 1.2f, 1f);
                 walkSpeed *= 1.2f;
                 runSpeed *= 1.2f;

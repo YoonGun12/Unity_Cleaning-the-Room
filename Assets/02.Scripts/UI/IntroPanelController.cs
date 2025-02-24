@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class IntroPanelController : MonoBehaviour
 {
     [SerializeField] private TMP_Text introText;
     [SerializeField] private GameObject introPanel;
+    [SerializeField] private GameObject titlePanel;
+    [SerializeField] private GameObject inGamePanel;
     
     private string[] introLines = new string[]
     {
@@ -30,19 +33,30 @@ public class IntroPanelController : MonoBehaviour
     private int currentLine = 0;
     private bool isTyping = false;
     private float textSpeed = 0.05f;
+    private CanvasGroup _canvasGroup;
 
+    private void Awake()
+    {
+        _canvasGroup = GetComponent<CanvasGroup>();
+    }
+
+    public void StartIntro()
+    {
+        transform.localScale = Vector2.zero;
+        currentLine = 0;
+        _canvasGroup.alpha = 0;
+        
+        transform.DOScale(Vector2.one, 0.2f);
+        _canvasGroup.DOFade(1f, 0.2f);
+        StartCoroutine(TypeText());
+    }
+    
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && !isTyping)
         {
             NextLine();
         }
-    }
-
-    private void Start()
-    {
-        introPanel.SetActive(true);
-        StartCoroutine(TypeText());
     }
     
     private IEnumerator TypeText()
@@ -72,7 +86,10 @@ public class IntroPanelController : MonoBehaviour
 
     private void EndIntro()
     {
+        titlePanel.SetActive(false);
         introPanel.SetActive(false);
+        inGamePanel.SetActive(true);
         GameManager.Instance.isPlay = true;
+        AudioManager.instance.PlayBgm(true);
     }
 }
