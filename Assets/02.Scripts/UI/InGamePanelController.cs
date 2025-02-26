@@ -51,10 +51,17 @@ public class InGamePanelController : MonoBehaviour
                 AudioManager.instance.PlayBgm(AudioManager.Bgm.InGame3,false);
                 AudioManager.instance.PlayBgm(AudioManager.Bgm.Result,true);
                 //AudioManager.instance.PlaySfx(AudioManager.Sfx.TimeOut);
+                StartCoroutine(GameOverResult());
             }
 
             gameScoreText.text = $"점수 : "+ GameManager.Instance.gameScore.ToString();
         }
+    }
+
+    IEnumerator GameOverResult()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Time.timeScale = 0;
     }
 
     public void UpdateCooldownUI(PlayerMove.AttackType attackType, float fillAmount)
@@ -117,6 +124,6 @@ public class InGamePanelController : MonoBehaviour
     
     public void SetGameTime(float time)
     {
-        gameTime += time;
+        gameTime = time;
     }
 }

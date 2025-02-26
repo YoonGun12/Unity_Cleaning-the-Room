@@ -77,10 +77,14 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        if(isMove)
-            Move();
-        Jump();
-        Kick();
+        if (GameManager.Instance.isPlay)
+        {
+            if(isMove)
+                Move();
+            Jump();
+            Kick();
+        }
+        
     }
 
     private void Move()

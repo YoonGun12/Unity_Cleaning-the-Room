@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SettingsPanelController : MonoBehaviour
 {
@@ -12,8 +13,9 @@ public class SettingsPanelController : MonoBehaviour
     private Vector2 settingsPanelPosOrigin;
     
     [SerializeField] private GameObject titlePanel;
-    [SerializeField] private GameObject retryButton;
     [SerializeField] private GameObject mainButton;
+    
+    
 
     private bool isPanelVisible = false;
     
@@ -51,37 +53,38 @@ public class SettingsPanelController : MonoBehaviour
         isPanelVisible = true;
         AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
         
+        
         if (GameManager.Instance.isPlay)
         {
-            retryButton.SetActive(true);
             mainButton.SetActive(true);
         }
         else
         {
-            retryButton.SetActive(false);
             mainButton.SetActive(false);
         }
-
         settingsPanelRect.DOAnchorPosY(0, 0.5f);
         settingsCanvasGroup.DOFade(1, 0.5f);
+
+        if (GameManager.Instance.isPlay)
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                Time.timeScale = 0;
+            });
+
+
     }
     
     public void OnClickCloseSettingPanelBtn()
     {
+        if (GameManager.Instance.isPlay)
+            Time.timeScale = 1;
         settingsPanelRect.DOAnchorPosY(settingsPanelPosOrigin.y, 0.5f);
         settingsCanvasGroup.DOFade(0, 0.5f);
         AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
 
-    public void OnClickSFXBtn()
-    {
-        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
-    }
 
-    public void OnClickBGMBtn()
-    {
-        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
-    }
+    
 
     public void OnClickMainBtn()
     {

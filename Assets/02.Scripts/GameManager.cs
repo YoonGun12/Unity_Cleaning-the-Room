@@ -19,11 +19,13 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         isPlay = false;
-        if (inGamePanelController != null)
-        {
-            inGamePanelController.SetGameTime(10f); // 초기 게임 시간 설정
-        }
     }
+
+    public void GameQuit()
+    {
+        Application.Quit();
+    }
+    
     
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)

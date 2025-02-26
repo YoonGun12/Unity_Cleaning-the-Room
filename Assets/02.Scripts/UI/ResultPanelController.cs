@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ResultPanelController : MonoBehaviour
 {
@@ -13,6 +12,12 @@ public class ResultPanelController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameScoreText;
     [SerializeField] private TextMeshProUGUI destroyObjectCountText;
 
+    private Vector2 resultPanelRectOrigin;
+
+    private void Awake()
+    {
+        resultPanelRectOrigin = resultPanel.GetComponent<RectTransform>().anchoredPosition;
+    }
 
     private void Update()
     {
@@ -22,6 +27,11 @@ public class ResultPanelController : MonoBehaviour
 
     public void OnClickQuitButton()
     {
-        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+        titlePanel.SetActive(true);
+        inGamePanel.SetActive(false);
+        resultPanel.GetComponent<RectTransform>().anchoredPosition = resultPanelRectOrigin;
+        titlePanel.GetComponent<TitlePanelController>().PlayTitleAnimation();
+        GameManager.Instance.player.transform.position = new Vector3(0, 0.733f, 0);
     }
 }

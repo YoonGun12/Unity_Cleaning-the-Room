@@ -22,7 +22,7 @@ public class TitlePanelController : MonoBehaviour
         PlayTitleAnimation();
     }
 
-    private void PlayTitleAnimation()
+    public void PlayTitleAnimation()
     {
         AudioManager.instance.PlayBgm(AudioManager.Bgm.Title, true);
         var startY = 700f; // 시작 위치 (화면 위)
@@ -58,7 +58,7 @@ public class TitlePanelController : MonoBehaviour
     IEnumerator ShowMenuBtn()
     {
         yield return new WaitForSeconds(2f);
-        menuBtn.GetComponent<RectTransform>().DOAnchorPosY(-300f, 0f);
+        //menuBtn.GetComponent<RectTransform>().DOAnchorPosY(-300f, 0f);
         menuBtn.GetComponent<RectTransform>().DOAnchorPosY(80f, 1f);
     }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class AudioManager : MonoBehaviour
     public int channels;
     private AudioSource[] _sfxPlayers;
     private int _channelIndex;
+    
+    [SerializeField] private Slider BgmSlider;
+    [SerializeField] private Slider SfxSlider;
 
     private void Awake()
     {
@@ -51,6 +55,21 @@ public class AudioManager : MonoBehaviour
         InGame2,
         InGame3,
         Result
+    }
+
+    private void Start()
+    {
+        if (BgmSlider != null)
+        {
+            BgmSlider.value = bgmVolume;
+            BgmSlider.onValueChanged.AddListener(SetBGMVolume);
+        }
+
+        if (SfxSlider != null)
+        {
+            SfxSlider.value = sfxVolume;
+            SfxSlider.onValueChanged.AddListener(SetSfxVolume);
+        }
     }
 
     void Init()
@@ -109,5 +128,26 @@ public class AudioManager : MonoBehaviour
             break;
         }
         
+    }
+    
+    public void SetBGMVolume(float volume)
+    {
+        bgmVolume = volume;
+        if (_bgmPlayer != null)
+        {
+            _bgmPlayer.volume = bgmVolume;
+        }
+    }
+    
+    public void SetSfxVolume(float volume)
+    {
+        sfxVolume = volume;
+        foreach (var sfxPlayer in _sfxPlayers)
+        {
+            if (sfxPlayer != null)
+            {
+                sfxPlayer.volume = sfxVolume;
+            }
+        }
     }
 }
