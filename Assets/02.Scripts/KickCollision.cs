@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KickCollision : MonoBehaviour
 {
-    private float kickForce = 50f;
+    private float kickForce = 70f;
     [SerializeField] private GameObject dustPrefab;
     [SerializeField] private Transform dustPrefabTransform;
 
@@ -25,11 +25,5 @@ public class KickCollision : MonoBehaviour
             }
         }
     }
-
-    public void GetPowerItem(int power)
-    {
-        kickForce += power;
-    }
-
     
 }

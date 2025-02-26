@@ -62,22 +62,28 @@ public class InGamePanelController : MonoBehaviour
         switch (attackType)
         {
             case PlayerMove.AttackType.L1:
-                L1Image.fillAmount = fillAmount;
+                if(L1Image != null)
+                    L1Image.fillAmount = fillAmount;
                 break;
             case PlayerMove.AttackType.L2:
-                L2Image.fillAmount = fillAmount;
+                if(L2Image != null)
+                    L2Image.fillAmount = fillAmount;
                 break;
             case PlayerMove.AttackType.R1:
-                R1Image.fillAmount = fillAmount;
+                if(R1Image != null)
+                    R1Image.fillAmount = fillAmount;
                 break;
             case PlayerMove.AttackType.R2:
-                R2Image.fillAmount = fillAmount;
+                if(R2Image != null)
+                    R2Image.fillAmount = fillAmount;
                 break;
             case PlayerMove.AttackType.DropKick:
-                DropKickImage.fillAmount = fillAmount;
+                if(DropKickImage != null)
+                    DropKickImage.fillAmount = fillAmount;
                 break;
             case PlayerMove.AttackType.HurricaneKick:
-                HurricaneKickImage.fillAmount = fillAmount;
+                if(HurricaneKickImage != null)
+                    HurricaneKickImage.fillAmount = fillAmount;
                 break;
         }
     }

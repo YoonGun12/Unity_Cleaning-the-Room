@@ -18,6 +18,7 @@ public class DesturctibleObject : MonoBehaviour
     [SerializeField] private GameObject[] itemPrefabs;
     [SerializeField] private Transform itemObjectParent;
 
+
     private void Start()
     {
         InitObject(_objectType);
@@ -84,6 +85,7 @@ public class DesturctibleObject : MonoBehaviour
             item.transform.DOMoveY(transform.position.y, 1f).SetEase(Ease.InQuad);
         });
         GameManager.Instance.gameScore += score;
+        GameManager.Instance.destroyObjectCount++;
         Destroy(gameObject);
     }
 
@@ -91,25 +93,26 @@ public class DesturctibleObject : MonoBehaviour
     {
         if(other.CompareTag("PlayerAttack"))
         {
+            float multiplier = GameManager.Instance.player.damageMultiplier;
             switch (GameManager.Instance.player.attackType)
             {
                 case PlayerMove.AttackType.L1:
-                    Damaged(10);
+                    Damaged((int)(10 * multiplier));
                     break;
                 case PlayerMove.AttackType.L2:
-                    Damaged(25);
+                    Damaged((int)(25 * multiplier));
                     break;
                 case PlayerMove.AttackType.R1:
-                    Damaged(15);
+                    Damaged((int)(15 * multiplier));
                     break;
                 case PlayerMove.AttackType.R2:
-                    Damaged(30);
+                    Damaged((int)(30 * multiplier));
                     break;
                 case PlayerMove.AttackType.DropKick:
-                    Damaged(40);
+                    Damaged((int)(40 * multiplier));
                     break;
                 case PlayerMove.AttackType.HurricaneKick:
-                    Damaged(100);
+                    Damaged((int)(100 * multiplier));
                     break;
             }
         }

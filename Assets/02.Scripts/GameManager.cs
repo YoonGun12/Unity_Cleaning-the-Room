@@ -14,13 +14,14 @@ public class GameManager : Singleton<GameManager>
 
     public bool isPlay = false;
     public int gameScore = 0;
+    public int destroyObjectCount = 0;
 
     private void Start()
     {
         isPlay = false;
         if (inGamePanelController != null)
         {
-            inGamePanelController.SetGameTime(300f); // 초기 게임 시간 설정
+            inGamePanelController.SetGameTime(10f); // 초기 게임 시간 설정
         }
     }
     

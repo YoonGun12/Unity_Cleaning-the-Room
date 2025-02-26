@@ -33,6 +33,7 @@ public class PlayerMove : MonoBehaviour
     private float leftClickTime;
     private float rightClickTime;
     private bool isMove = true;
+    public float damageMultiplier = 1f;
     
     private Rigidbody rigid;
 
@@ -365,7 +366,7 @@ public class PlayerMove : MonoBehaviour
                 StartCoroutine(SpeedUpEffect());
                 break;
             case Item.ItemType.TimeExtension :
-                GameManager.Instance.inGamePanelController.AddTime(30f);
+                GameManager.Instance.inGamePanelController.AddTime(10f);
                 AudioManager.instance.PlaySfx(AudioManager.Sfx.AddTime);
                 break;
             case Item.ItemType.Magnet :
@@ -432,7 +433,8 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator PowerUpEffect()
     {
-        _kickCollision.GetPowerItem(50);
-        yield return new WaitForSeconds(2f);
+        damageMultiplier = 2f;
+        yield return new WaitForSeconds(5f);
+        damageMultiplier = 1f;
     }
 }

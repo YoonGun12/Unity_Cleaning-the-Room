@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SettingsPanelController : MonoBehaviour
 {
@@ -81,13 +82,10 @@ public class SettingsPanelController : MonoBehaviour
     {
         AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
-    public void OnClickRetryBtn()
-    {
-        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
-    }
 
     public void OnClickMainBtn()
     {
+        SceneManager.LoadScene(0);
         AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
 }
