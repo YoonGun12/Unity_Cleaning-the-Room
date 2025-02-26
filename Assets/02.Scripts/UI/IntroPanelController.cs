@@ -87,7 +87,7 @@ public class IntroPanelController : MonoBehaviour
         introPanel.SetActive(false);
         inGamePanel.SetActive(true);
         GameManager.Instance.isPlay = true;
-        GameManager.Instance.inGamePanelController.SetGameTime(10f);
+        GameManager.Instance.inGamePanelController.SetGameTime(300f);
         AudioManager.instance.PlayBgm(AudioManager.Bgm.Title, false);
         AudioManager.instance.PlayBgm(AudioManager.Bgm.InGame1, true);
     }

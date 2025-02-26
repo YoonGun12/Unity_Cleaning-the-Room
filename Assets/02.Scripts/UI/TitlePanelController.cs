@@ -7,9 +7,7 @@ using DG.Tweening;
 public class TitlePanelController : MonoBehaviour
 {
     [SerializeField] private RectTransform title1;
-    [SerializeField] private RectTransform title2;
-    [SerializeField] private RectTransform title3;
-    [SerializeField] private RectTransform title4;
+    
     [SerializeField] private GameObject menuBtn;
     [SerializeField] private RectTransform settingsPanelRectTransform;
     [SerializeField] private GameObject titlePanel;
@@ -34,9 +32,7 @@ public class TitlePanelController : MonoBehaviour
 
 
         AnimateTitleLetter(title1, startY, endY, bounceHeight, duration, bounceDuration, 0 * delayBetweenLetters);
-        AnimateTitleLetter(title2, startY, endY, bounceHeight, duration, bounceDuration, 1 * delayBetweenLetters);
-        AnimateTitleLetter(title3, startY, endY, bounceHeight, duration, bounceDuration, 2 * delayBetweenLetters);
-        AnimateTitleLetter(title4, startY, endY, bounceHeight, duration, bounceDuration, 3 * delayBetweenLetters);
+        
         StartCoroutine(ShowMenuBtn());
     }
 
@@ -58,8 +54,7 @@ public class TitlePanelController : MonoBehaviour
     IEnumerator ShowMenuBtn()
     {
         yield return new WaitForSeconds(2f);
-        //menuBtn.GetComponent<RectTransform>().DOAnchorPosY(-300f, 0f);
-        menuBtn.GetComponent<RectTransform>().DOAnchorPosY(80f, 1f);
+        menuBtn.GetComponent<RectTransform>().DOAnchorPosY(0, 1f);
     }
 
     public void OnClickStartBtn()

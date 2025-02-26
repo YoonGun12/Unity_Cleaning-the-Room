@@ -39,6 +39,10 @@ public class CameraFollow : MonoBehaviour
 
     public void ChangeDistanceCamera(float rate)
     {
-        distanceTargetCamera *= rate;
+        float baseScle = 1f;
+        float baseDistance = 4f;
+        float minDistance = 3f;
+        float maxDistance = 15f;
+        distanceTargetCamera = Mathf.Clamp(baseDistance * (rate /baseScle), minDistance, maxDistance);
     }
 }

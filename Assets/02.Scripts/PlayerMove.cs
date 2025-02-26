@@ -383,17 +383,11 @@ public class PlayerMove : MonoBehaviour
                 break;
             case Item.ItemType.SizeDown :
                 AudioManager.instance.PlaySfx(AudioManager.Sfx.SizeDown);
-                transform.DOScale(transform.localScale * 0.9f, 1f);
-                walkSpeed *= 0.9f;
-                runSpeed *= 0.9f;
-                cameraTransform.GetComponent<CameraFollow>().ChangeDistanceCamera(0.9f);
+                ChangeSize(0.8f);
                 break;
             case Item.ItemType.SizeUp :
                 AudioManager.instance.PlaySfx(AudioManager.Sfx.SizeUp);
-                transform.DOScale(transform.localScale * 1.2f, 1f);
-                walkSpeed *= 1.2f;
-                runSpeed *= 1.2f;
-                cameraTransform.GetComponent<CameraFollow>().ChangeDistanceCamera(1.1f);
+                ChangeSize(1.5f);
                 break;
         }
     }
@@ -440,5 +434,26 @@ public class PlayerMove : MonoBehaviour
         damageMultiplier = 2f;
         yield return new WaitForSeconds(5f);
         damageMultiplier = 1f;
+    }
+
+    private void ChangeSize(float scaleMultiplier)
+    {
+        Vector3 newScale = transform.localScale * scaleMultiplier;
+        
+        newScale.x = Mathf.Clamp(newScale.x, 0.5f, 5f);
+        newScale.y = Mathf.Clamp(newScale.y, 0.5f, 5f);
+        newScale.z = Mathf.Clamp(newScale.z, 0.5f, 5f);
+
+        transform.DOScale(newScale, 1f);
+
+        walkSpeed *= scaleMultiplier;
+        runSpeed *= scaleMultiplier;
+        jumpPower *= scaleMultiplier;
+
+        walkSpeed = Mathf.Clamp(walkSpeed, 1.5f, 7.5f);
+        runSpeed = Mathf.Clamp(runSpeed, 3.5f, 16.5f);
+        jumpPower = Mathf.Clamp(jumpPower, 2.5f, 15f);
+
+        cameraTransform.GetComponent<CameraFollow>().ChangeDistanceCamera(newScale.x);
     }
 }
