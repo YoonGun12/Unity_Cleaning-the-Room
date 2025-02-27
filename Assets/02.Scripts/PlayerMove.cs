@@ -47,6 +47,8 @@ public class PlayerMove : MonoBehaviour
     public enum AttackType{None,L1, L2, R1, R2, DropKick, HurricaneKick}
     public AttackType attackType = AttackType.L1;
 
+    private bool isSpeedUpActive = false;
+    
     private float cooldown_L1 = 0.5f;
     private float cooldown_L2 = 1.5f;
     private float cooldown_R1 = 1f;
@@ -394,7 +396,9 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator SpeedUpEffect()
     {
-        //TODO: 중복 스피드업 금지
+        if(isSpeedUpActive) yield break;
+
+        isSpeedUpActive = true;
         var originalWalkSpeed = walkSpeed;
         var originalRunSpeed = runSpeed;
 
@@ -404,6 +408,7 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(5f);
         walkSpeed = originalWalkSpeed;
         runSpeed = originalRunSpeed;
+        isSpeedUpActive = false;
     }
 
     IEnumerator MagnetEffect()
