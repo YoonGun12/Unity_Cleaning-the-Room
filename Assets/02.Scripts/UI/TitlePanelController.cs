@@ -24,7 +24,7 @@ public class TitlePanelController : MonoBehaviour
     {
         AudioManager.instance.PlayBgm(AudioManager.Bgm.Title, true);
         var startY = 700f; // 시작 위치 (화면 위)
-        var endY = 0f; // 최종 위치
+        var endY = -30f; // 최종 위치
         var bounceHeight = 100f; // 튀는 높이
         var duration = 0.5f; // 기본 내려오는 시간
         var bounceDuration = 0.5f; // 튀는 시간

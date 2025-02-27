@@ -48,9 +48,18 @@ public class IntroPanelController : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !isTyping)
+        if (Input.GetMouseButtonDown(0))
         {
-            NextLine();
+            if (isTyping)
+            {
+                StopAllCoroutines();
+                introText.text = introLines[currentLine];
+                isTyping = false;
+            }
+            else
+            {
+                NextLine();
+            }
         }
     }
     
@@ -60,6 +69,11 @@ public class IntroPanelController : MonoBehaviour
         introText.text = "";
         foreach (var letter in introLines[currentLine].ToCharArray())
         {
+            if (!isTyping)
+            {
+                introText.text = introLines[currentLine];
+                break;
+            }
             introText.text += letter;
             AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
             yield return new WaitForSeconds(textSpeed);

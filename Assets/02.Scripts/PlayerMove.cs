@@ -370,7 +370,7 @@ public class PlayerMove : MonoBehaviour
                 StartCoroutine(SpeedUpEffect());
                 break;
             case Item.ItemType.TimeExtension :
-                GameManager.Instance.inGamePanelController.AddTime(10f);
+                GameManager.Instance.inGamePanelController.AddTime(20f);
                 AudioManager.instance.PlaySfx(AudioManager.Sfx.AddTime);
                 break;
             case Item.ItemType.Magnet :
