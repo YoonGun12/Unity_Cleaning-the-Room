@@ -17,6 +17,7 @@ public class DesturctibleObject : MonoBehaviour
     [SerializeField] private int score;
     [SerializeField] private GameObject[] itemPrefabs;
     [SerializeField] private Transform itemObjectParent;
+    [SerializeField] private float itemDropChance = 0.5f;
 
 
     private void Start()
@@ -69,7 +70,6 @@ public class DesturctibleObject : MonoBehaviour
         
         if (hp <= 0)
         {
-            //TODO: 사라지는 소리 type별 switch
             StartCoroutine(DestroyObject());
         }
     }
@@ -77,13 +77,17 @@ public class DesturctibleObject : MonoBehaviour
     private IEnumerator DestroyObject()
     {
         yield return new WaitForSeconds(1f);
-        GameObject item = Instantiate(itemPrefabs[Random.Range(0, itemPrefabs.Length)], itemObjectParent);
-        item.transform.position = transform.position;
-
-        item.transform.DOMoveY(transform.position.y + 0.5f, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
+        if (Random.value <= itemDropChance && itemPrefabs.Length > 0)
         {
-            item.transform.DOMoveY(transform.position.y, 1f).SetEase(Ease.InQuad);
-        });
+            GameObject item = Instantiate(itemPrefabs[Random.Range(0, itemPrefabs.Length)], itemObjectParent);
+            item.transform.position = transform.position;
+
+            item.transform.DOMoveY(transform.position.y + 0.5f, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
+            {
+                item.transform.DOMoveY(transform.position.y, 1f).SetEase(Ease.InQuad);
+            });
+        }
+        
         GameManager.Instance.gameScore += score;
         GameManager.Instance.destroyObjectCount++;
         Destroy(gameObject);

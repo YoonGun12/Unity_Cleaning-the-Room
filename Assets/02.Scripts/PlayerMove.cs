@@ -408,8 +408,8 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator MagnetEffect()
     {
-        var magnetRadius = 5f;
-        var magnetSpeed = 2f;
+        var magnetRadius = 7f;
+        var magnetSpeed = 3f;
         var elapsedTime = 0f;
 
         while (elapsedTime < 5f)
@@ -452,7 +452,7 @@ public class PlayerMove : MonoBehaviour
 
         walkSpeed = Mathf.Clamp(walkSpeed, 1.5f, 7.5f);
         runSpeed = Mathf.Clamp(runSpeed, 3.5f, 16.5f);
-        jumpPower = Mathf.Clamp(jumpPower, 2.5f, 15f);
+        jumpPower = Mathf.Clamp(jumpPower, 40f, 120f);
 
         cameraTransform.GetComponent<CameraFollow>().ChangeDistanceCamera(newScale.x);
     }

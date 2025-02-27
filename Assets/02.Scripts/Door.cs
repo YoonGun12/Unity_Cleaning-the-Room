@@ -7,6 +7,8 @@ public class Door : MonoBehaviour
 {
     [SerializeField] private GameObject door;
     private Animator anim;
+    private bool isOpen = false;
+    private string lastOpenTrigger = "Open";
 
     private void Awake()
     {
@@ -15,17 +17,31 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(other.CompareTag("Player") && !isOpen)
         {
-            anim.SetTrigger("Open");
+            Vector3 playerPosition = other.transform.position;
+            Vector3 doorPosition = door.transform.position;
+
+            if (Vector3.Dot(transform.forward, playerPosition - doorPosition) > 0)
+            {
+                lastOpenTrigger = "OpenBackward";
+            }
+            else
+            {
+                lastOpenTrigger = "Open";
+            }
+            anim.SetTrigger(lastOpenTrigger);
+            isOpen = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && isOpen)
         {
-            anim.SetTrigger("Close");
+            string closeTrigger = (lastOpenTrigger == "Open") ? "Close" : "CloseBackward";
+            anim.SetTrigger(closeTrigger);
+            isOpen = false;
         }
     }
 }
