@@ -292,6 +292,7 @@ public class PlayerMove : MonoBehaviour
             yield return null;
         }
 
+        disableAttackCollider();
         isMove = true;
     }
 
