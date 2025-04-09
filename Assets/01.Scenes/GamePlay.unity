@@ -13247,7 +13247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inGamePanelController: {fileID: 454836149}
   introPanelController: {fileID: 1820189121}
-  player: {fileID: 534374216}
+  player: {fileID: 0}
   isPlay: 0
   gameScore: 0
   destroyObjectCount: 0
@@ -14159,7 +14159,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534374215}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4da2450863129ef41a94fe7c7bd551e8, type: 3}
   m_Name: 
@@ -14169,11 +14169,11 @@ MonoBehaviour:
   jumpPower: 50
   playerPivot: {fileID: 1685353227}
   rotationSmoothTime: 0.1
-  leftFootCollider: {fileID: 1944993051}
-  rightFootCollider: {fileID: 1275422801}
+  LeftFootCollider: {fileID: 0}
+  RightFootCollider: {fileID: 0}
+  damageMultiplier: 1
   cameraTransform: {fileID: 383076781}
   attackType: 0
-  damageMultiplier: 1
 --- !u!114 &534374217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14334,6 +14334,58 @@ CapsuleCollider:
   m_Height: 1.7976857
   m_Direction: 1
   m_Center: {x: 0, y: 0.901157, z: 0}
+--- !u!114 &534374225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534374215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07d49459f6c63044bf9a6c939685d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 2.5
+  runSpeed: 5.5
+  jumpPower: 50
+  playerPivot: {fileID: 1685353227}
+  rotationSmoothTime: 0.1
+  cameraTransform: {fileID: 383076781}
+  leftFootCollider: {fileID: 1944993051}
+  rightFootCollider: {fileID: 1275422801}
+  rigid: {fileID: 534374220}
+  attackType: 1
+  isGround: 0
+  _isMove: 1
+  damageMultiplier: 1
+  moveAction:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8651bc73-6cb3-42bd-b4e7-d582b40c487f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  runAction:
+    m_Name: Run
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5132512a-ba36-44bf-a03c-f8d71944836b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  jumpAction:
+    m_Name: Jump
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 344e8dcb-fe6a-4c89-8513-a12852910fa1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &535543029 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 441567561389318531, guid: acab743723ed9fb499a7d4ec7c4578bd,
@@ -51877,6 +51929,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 534374216}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ae90104d66bf67448106c1af158f3d9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 534374225}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ae90104d66bf67448106c1af158f3d9,
         type: 3}
       insertIndex: -1
