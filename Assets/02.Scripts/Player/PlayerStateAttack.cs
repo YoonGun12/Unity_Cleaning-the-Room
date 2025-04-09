@@ -98,6 +98,7 @@ public class PlayerStateAttack : IPlayerState
         {
             timer -= Time.deltaTime;
             GameManager.Instance.inGamePanelController.UpdateCooldownUI(attackType, timer / cooldown);
+            GameManager.Instance.inGamePanelController.UpdateCooldownUI(attackType, timer / cooldown);
             yield return null;
         }
 
