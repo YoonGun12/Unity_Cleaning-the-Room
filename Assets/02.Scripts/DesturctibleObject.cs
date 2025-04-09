@@ -100,22 +100,22 @@ public class DesturctibleObject : MonoBehaviour
             float multiplier = GameManager.Instance.player.damageMultiplier;
             switch (GameManager.Instance.player.attackType)
             {
-                case PlayerMove.AttackType.L1:
+                case PlayerController.AttackType.L1:
                     Damaged((int)(10 * multiplier));
                     break;
-                case PlayerMove.AttackType.L2:
+                case PlayerController.AttackType.L2:
                     Damaged((int)(25 * multiplier));
                     break;
-                case PlayerMove.AttackType.R1:
+                case PlayerController.AttackType.R1:
                     Damaged((int)(15 * multiplier));
                     break;
-                case PlayerMove.AttackType.R2:
+                case PlayerController.AttackType.R2:
                     Damaged((int)(30 * multiplier));
                     break;
-                case PlayerMove.AttackType.DropKick:
+                case PlayerController.AttackType.DropKick:
                     Damaged((int)(40 * multiplier));
                     break;
-                case PlayerMove.AttackType.HurricaneKick:
+                case PlayerController.AttackType.HurricaneKick:
                     Damaged((int)(100 * multiplier));
                     break;
             }

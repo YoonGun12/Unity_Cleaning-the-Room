@@ -10,7 +10,7 @@ public class GameManager : Singleton<GameManager>
     [Header("게임 설정")] 
     public InGamePanelController inGamePanelController; // UIManager 참조 추가
     public IntroPanelController introPanelController;
-    public PlayerMove player;
+    public PlayerController player;
 
     public bool isPlay = false;
     public int gameScore = 0;

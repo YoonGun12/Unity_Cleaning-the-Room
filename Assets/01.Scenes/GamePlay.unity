@@ -14169,11 +14169,11 @@ MonoBehaviour:
   jumpPower: 50
   playerPivot: {fileID: 1685353227}
   rotationSmoothTime: 0.1
-  LeftFootCollider: {fileID: 1944993051}
-  RightFootCollider: {fileID: 1275422801}
-  damageMultiplier: 1
+  leftFootCollider: {fileID: 1944993051}
+  rightFootCollider: {fileID: 1275422801}
   cameraTransform: {fileID: 383076781}
   attackType: 0
+  damageMultiplier: 1
 --- !u!114 &534374217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42810,7 +42810,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00018310547, y: 0}
+  m_AnchoredPosition: {x: -0.00024414062, y: 0}
   m_SizeDelta: {x: 6003.9995, y: 4118.9546}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1487255678

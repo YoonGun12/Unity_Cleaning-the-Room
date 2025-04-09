@@ -64,31 +64,31 @@ public class InGamePanelController : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void UpdateCooldownUI(PlayerMove.AttackType attackType, float fillAmount)
+    public void UpdateCooldownUI(PlayerController.AttackType attackType, float fillAmount)
     {
         switch (attackType)
         {
-            case PlayerMove.AttackType.L1:
+            case PlayerController.AttackType.L1:
                 if(L1Image != null)
                     L1Image.fillAmount = fillAmount;
                 break;
-            case PlayerMove.AttackType.L2:
+            case PlayerController.AttackType.L2:
                 if(L2Image != null)
                     L2Image.fillAmount = fillAmount;
                 break;
-            case PlayerMove.AttackType.R1:
+            case PlayerController.AttackType.R1:
                 if(R1Image != null)
                     R1Image.fillAmount = fillAmount;
                 break;
-            case PlayerMove.AttackType.R2:
+            case PlayerController.AttackType.R2:
                 if(R2Image != null)
                     R2Image.fillAmount = fillAmount;
                 break;
-            case PlayerMove.AttackType.DropKick:
+            case PlayerController.AttackType.DropKick:
                 if(DropKickImage != null)
                     DropKickImage.fillAmount = fillAmount;
                 break;
-            case PlayerMove.AttackType.HurricaneKick:
+            case PlayerController.AttackType.HurricaneKick:
                 if(HurricaneKickImage != null)
                     HurricaneKickImage.fillAmount = fillAmount;
                 break;

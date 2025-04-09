@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody), typeof(Animator), typeof(MotionTrail))]
 public class PlayerMove : MonoBehaviour
 {
     [Header("플레이어 이동")] 
@@ -262,7 +263,7 @@ public class PlayerMove : MonoBehaviour
         while (timer > 0)
         {
             timer -= Time.deltaTime;
-            GameManager.Instance.inGamePanelController.UpdateCooldownUI(attackType, timer/cooldown);
+            //GameManager.Instance.inGamePanelController.UpdateCooldownUI(attackType, timer/cooldown);
             yield return null;
         }
 
@@ -276,7 +277,7 @@ public class PlayerMove : MonoBehaviour
             case AttackType.HurricaneKick: canAttack_HurricaneKick = true; break;
         }
         
-        GameManager.Instance.inGamePanelController.UpdateCooldownUI(attackType, 0);
+        //GameManager.Instance.inGamePanelController.UpdateCooldownUI(attackType, 0);
     }
 
     IEnumerator RotateHurricaneKick()
@@ -462,4 +463,5 @@ public class PlayerMove : MonoBehaviour
 
         cameraTransform.GetComponent<CameraFollow>().ChangeDistanceCamera(newScale.x);
     }
+   
 }
