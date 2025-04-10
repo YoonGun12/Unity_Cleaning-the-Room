@@ -14,16 +14,23 @@ public class PlayerStateIdle : IPlayerState
 
     public void Update()
     {
-        Vector2 input = _player.moveAction.ReadValue<Vector2>();
+        Vector2 input = _player.MoveAction.ReadValue<Vector2>();
         if (input.sqrMagnitude > 0.01f)
         {
             _player.SetState(PlayerState.Move);
         }
 
-        if (_player.jumpAction.triggered && _player.isGround)
+        if (_player.JumpAction.triggered && _player.isGround)
         {
+            Debug.Log("점프 키 및 isground 참!");
             _player.SetState(PlayerState.Jump);
         }
+        
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            _player.SetState(PlayerState.Attack);
+        }
+        
     }
 
     public void OnExit()

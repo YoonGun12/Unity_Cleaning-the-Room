@@ -97,7 +97,7 @@ public class DesturctibleObject : MonoBehaviour
     {
         if(other.CompareTag("PlayerAttack"))
         {
-            float multiplier = GameManager.Instance.player.damageMultiplier;
+            float multiplier = GameManager.Instance.player.DamageMultiplier;
             switch (GameManager.Instance.player.attackType)
             {
                 case PlayerController.AttackType.L1:

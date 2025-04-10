@@ -297,7 +297,7 @@ public class PlayerMove : MonoBehaviour
         isMove = true;
     }
 
-    public void EnableAttackCollider(AttackType attackType)
+    /*public void EnableAttackCollider(AttackType attackType)
     {
         switch (attackType)
         {
@@ -315,7 +315,7 @@ public class PlayerMove : MonoBehaviour
                 RightFootCollider.enabled = true;
                 break;
         }
-    }
+    }*/
 
     public void disableAttackCollider()
     {

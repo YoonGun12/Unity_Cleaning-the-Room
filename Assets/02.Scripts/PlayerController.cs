@@ -14,21 +14,22 @@ public enum PlayerState
 public class PlayerController : MonoBehaviour
 {
     [Header("플레이어 이동")]
-    public float walkSpeed; 
-    public float runSpeed; 
-    [SerializeField] public float jumpPower; 
-    [SerializeField] public Transform playerPivot;
-    public float rotationSmoothTime = 0.1f;
+    [SerializeField] private float walkSpeed; 
+    [SerializeField] private float runSpeed; 
+    [SerializeField] private float jumpPower; 
+    [SerializeField] private Transform playerPivot;
+    [SerializeField] private float rotationSmoothTime = 0.1f;
+    [SerializeField]private float damageMultiplier = 1f;
 
     [Header("카메라")] 
-    public Transform cameraTransform;
+    [SerializeField] private Transform cameraTransform;
     
     [Header("공격 콜라이더")] 
     [SerializeField] private Collider leftFootCollider;
     [SerializeField] private Collider rightFootCollider;
     
     public Animator anim { get; private set; }
-    public Rigidbody rigid;
+    private Rigidbody rigid;
     private MotionTrail _motionTrail;
     private KickCollision _kickCollision;
     
@@ -37,13 +38,32 @@ public class PlayerController : MonoBehaviour
     
     public bool isGround;
     public bool _isMove = true;
-    public float damageMultiplier = 1f;
     
-    public InputAction moveAction;
-    public InputAction runAction;
-    public InputAction jumpAction;
+    
+    private InputAction moveAction;
+    private InputAction runAction;
+    private InputAction jumpAction;
 
     private PlayerInput _input;
+
+    #region 읽기 전용 프로퍼티
+
+    public float WalkSpeed => walkSpeed;
+    public float RunSpeed => runSpeed;
+    public float JumpPower => jumpPower;
+    public Transform PlayerPivot => playerPivot;
+    public float RotationSmoothTime => rotationSmoothTime;
+    public Transform CameraTransform => cameraTransform;
+    
+    public Rigidbody Rigid => rigid;
+    
+    public float DamageMultiplier => damageMultiplier;
+    
+    public InputAction MoveAction => moveAction;
+    public InputAction RunAction => runAction;
+    public InputAction JumpAction => jumpAction;
+
+    
 
     //상태관련
     private PlayerStateIdle _playerStateIdle;
@@ -53,6 +73,7 @@ public class PlayerController : MonoBehaviour
     
     public PlayerState CurrentState { get; private set; }
     private Dictionary<PlayerState, IPlayerState> _playerStates;
+    #endregion
 
     private void Awake()
     {
@@ -83,6 +104,7 @@ public class PlayerController : MonoBehaviour
             { PlayerState.Attack, _playerStateAttack }
         };
         
+        isGround = Physics.Raycast(PlayerPivot.position, Vector3.down, transform.localScale.y * 0.2f);
         SetState(PlayerState.Idle);
         
     }

@@ -12,7 +12,7 @@ public class PlayerStateMove : IPlayerState
 
     public void Update()
     {
-        Vector2 input = _player.moveAction.ReadValue<Vector2>();
+        Vector2 input = _player.MoveAction.ReadValue<Vector2>();
 
         if (input.sqrMagnitude < 0.01f)
         {
@@ -20,8 +20,8 @@ public class PlayerStateMove : IPlayerState
             return;
         }
 
-        Vector3 forward = _player.cameraTransform.forward;
-        Vector3 right = _player.cameraTransform.right;
+        Vector3 forward = _player.CameraTransform.forward;
+        Vector3 right = _player.CameraTransform.right;
 
         forward.y = 0;
         right.y = 0;
@@ -29,9 +29,9 @@ public class PlayerStateMove : IPlayerState
         right.Normalize();
 
         Vector3 moveDir = forward * input.y + right * input.x;
-        float speed = _player.runAction.IsPressed() ? _player.runSpeed : _player.walkSpeed;
+        float speed = _player.RunAction.IsPressed() ? _player.RunSpeed : _player.WalkSpeed;
 
-        _player.rigid.velocity = new Vector3(moveDir.x * speed, _player.rigid.velocity.y, moveDir.z * speed);
+        _player.Rigid.velocity = new Vector3(moveDir.x * speed, _player.Rigid.velocity.y, moveDir.z * speed);
 
         // 회전
         float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
@@ -39,16 +39,22 @@ public class PlayerStateMove : IPlayerState
             _player.transform.eulerAngles.y,
             targetAngle,
             ref rotationVelocity,
-            _player.rotationSmoothTime);
+            _player.RotationSmoothTime);
 
         _player.transform.rotation = Quaternion.Euler(0, smoothAngle, 0);
 
         _player.anim.SetBool("isWalk", true);
-        _player.anim.SetBool("isRun", _player.runAction.IsPressed());
+        _player.anim.SetBool("isRun", _player.RunAction.IsPressed());
 
-        if (_player.jumpAction.triggered && _player.isGround)
+        if (_player.JumpAction.triggered && _player.isGround)
         {
+            Debug.Log("점프 키 및 isground 참!");
             _player.SetState(PlayerState.Jump);
+        }
+        
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            _player.SetState(PlayerState.Attack);
         }
     }
 
