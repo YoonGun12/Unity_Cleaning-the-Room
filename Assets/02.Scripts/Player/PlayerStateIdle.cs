@@ -8,6 +8,10 @@ public class PlayerStateIdle : IPlayerState
     public void OnEnter(PlayerController playerController)
     {
         _player = playerController;
+        
+        float rayLength = _player.transform.localScale.y * 0.2f;
+        _player.isGround = Physics.Raycast(_player.PlayerPivot.position, Vector3.down, rayLength);
+        
         _player.anim.SetBool("isWalk", false);
         _player.anim.SetBool("isRun", false);
     }

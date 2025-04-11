@@ -52439,7 +52439,7 @@ AnimationClip:
     intParameter: 1
     messageOptions: 0
   - time: 0.93333334
-    functionName: disableAttackCollider
+    functionName: DisableAttackCollider
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

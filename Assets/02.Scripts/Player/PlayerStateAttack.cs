@@ -29,10 +29,7 @@ public class PlayerStateAttack : IPlayerState
     {
         _player = playerController;
         // 초기화 (예: 상태 전환 시 공격 입력 재확인 등)
-    }
-
-    public void Update()
-    {
+        
         bool isEPressed = Input.GetKey(KeyCode.E);
 
         if (Input.GetMouseButtonDown(0))
@@ -79,6 +76,11 @@ public class PlayerStateAttack : IPlayerState
             else if (canAttack_R1)
                 ExecuteAttack(PlayerController.AttackType.R1, "Kick_R1", cooldown_R1);
         }
+    }
+
+    public void Update()
+    {
+        
     }
 
     private void ExecuteAttack(PlayerController.AttackType type, string triggerName, float cooldown)

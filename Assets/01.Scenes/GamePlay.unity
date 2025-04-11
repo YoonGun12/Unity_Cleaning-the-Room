@@ -13247,7 +13247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inGamePanelController: {fileID: 454836149}
   introPanelController: {fileID: 1820189121}
-  player: {fileID: 0}
+  player: {fileID: 534374225}
   isPlay: 0
   gameScore: 0
   destroyObjectCount: 0
@@ -14351,41 +14351,13 @@ MonoBehaviour:
   jumpPower: 50
   playerPivot: {fileID: 1685353227}
   rotationSmoothTime: 0.1
+  damageMultiplier: 1
   cameraTransform: {fileID: 383076781}
   leftFootCollider: {fileID: 1944993051}
   rightFootCollider: {fileID: 1275422801}
-  rigid: {fileID: 534374220}
   attackType: 1
   isGround: 0
   _isMove: 1
-  damageMultiplier: 1
-  moveAction:
-    m_Name: Move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 8651bc73-6cb3-42bd-b4e7-d582b40c487f
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  runAction:
-    m_Name: Run
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 5132512a-ba36-44bf-a03c-f8d71944836b
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  jumpAction:
-    m_Name: Jump
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 344e8dcb-fe6a-4c89-8513-a12852910fa1
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!1 &535543029 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 441567561389318531, guid: acab743723ed9fb499a7d4ec7c4578bd,
