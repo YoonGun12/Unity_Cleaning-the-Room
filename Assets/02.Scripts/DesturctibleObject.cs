@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 enum DestructibleObjectType
@@ -13,11 +14,13 @@ enum DestructibleObjectType
 public class DesturctibleObject : MonoBehaviour
 {
     [SerializeField] private DestructibleObjectType _objectType;
-    [SerializeField] private int hp;
+    [SerializeField] private int maxHp;
     [SerializeField] private int score;
     [SerializeField] private GameObject[] itemPrefabs;
     [SerializeField] private Transform itemObjectParent;
     [SerializeField] private float itemDropChance = 0.5f;
+
+    private int currentHp;
 
 
     private void Start()
@@ -30,45 +33,48 @@ public class DesturctibleObject : MonoBehaviour
         switch (objectType)
         {
             case DestructibleObjectType.Food:
-                hp = Random.Range(15, 26);
-                score = hp * 8;
+                maxHp = Random.Range(15, 26);
+                score = maxHp * 8;
                 break;
             case DestructibleObjectType.SmallFurniture:
-                hp = Random.Range(80, 121);
-                score = hp * 6;
+                maxHp = Random.Range(80, 121);
+                score = maxHp * 6;
                 break;
             case DestructibleObjectType.BigFurniture:
-                hp = Random.Range(180, 251);
-                score = hp * 4;
+                maxHp = Random.Range(180, 251);
+                score = maxHp * 4;
                 break;
             case DestructibleObjectType.Book:
-                hp = Random.Range(20, 41);
-                score = hp * 7;
+                maxHp = Random.Range(20, 41);
+                score = maxHp * 7;
                 break;
             case DestructibleObjectType.WasteBag:
-                hp = Random.Range(90, 181);
-                score = hp * 5;
+                maxHp = Random.Range(90, 181);
+                score = maxHp * 5;
                 break;
             case DestructibleObjectType.Waste:
-                hp = Random.Range(30, 51);
-                score = hp * 6;
+                maxHp = Random.Range(30, 51);
+                score = maxHp * 6;
                 break;
             case DestructibleObjectType.SmallObject:
-                hp = Random.Range(20, 41);
-                score = hp * 7;
+                maxHp = Random.Range(20, 41);
+                score = maxHp * 7;
                 break;
         }
 
-        score = hp * 10;
+        currentHp = maxHp;
+        score = maxHp * 10;
     }
 
     public void Damaged(int damage)
     {
-        hp -= damage;
+        currentHp -= damage;
         AudioManager.instance.PlaySfx(AudioManager.Sfx.HardObject);
 
+        float ratio = Mathf.Clamp01((float)currentHp / maxHp);
+        HPBarManager.Instance.ShowHPBar(transform, ratio);
         
-        if (hp <= 0)
+        if (currentHp <= 0)
         {
             StartCoroutine(DestroyObject());
         }
