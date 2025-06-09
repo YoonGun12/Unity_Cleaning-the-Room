@@ -5,7 +5,7 @@
 ## 📺 게임 플레이 영상
 실제 게임 플레이 모습을 확인해보세요! 다양한 킥 액션과 파괴 시스템을 한눈에 볼 수 있습니다.
 
-[![방치우기 게임플레이 영상](https://youtu.be/ZTwfQWilnzM?si=NL8IS3WTDgsgnbE5)
+[방치우기 게임플레이 영상](https://youtu.be/ZTwfQWilnzM?si=NL8IS3WTDgsgnbE5)
 
 > 🎬 **영상에서 확인할 수 있는 것들:**
 > - 6가지 킥 액션 시스템 (기본킥, 강화킥, 드롭킥, 허리케인킥)
